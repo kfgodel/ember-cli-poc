@@ -36,3 +36,14 @@ If not follow [node install guides under installation](http://guides.emberjs.com
  (fake browser)
  
 > sudo npm install -g phantomjs2
+
+
+## Start project
+
+> ember new my-new-app  
+> cd my-new-app  
+> ember server  
+(Debería levantar pagina [http://localhost:4200](http://localhost:4200))
+
+## Compilar a produccion
+> ember build --environment=production
