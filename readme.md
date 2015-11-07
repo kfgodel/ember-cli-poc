@@ -8,7 +8,7 @@ This projects test the ember tutorial using the console client.
 Verify version >= 0.12
 > node --version  
 
-If not follow [node install guides under installation](http://guides.emberjs.com/v2.1.0/getting-started/)
+If not, follow [node install guides under installation](http://guides.emberjs.com/v2.1.0/getting-started/)
 - Ubuntu
 > curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -  
 > sudo apt-get install -y nodejs
@@ -44,6 +44,17 @@ If not follow [node install guides under installation](http://guides.emberjs.com
 > cd my-new-app  
 > ember server  
 (Debería levantar pagina [http://localhost:4200](http://localhost:4200))
+
+### Update to ember 2.1
+Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8-project-to-use-ember-2-1-and-ember-data-2-1/) 
+
+1. Update bower.json
+2. Update package.json
+3. Update dependencies
+> rm -fR my-new-app/node_modules  
+> rm -fR my-new-app/bower_components  
+> npm install  
+> bower install  
 
 ## Compilar a produccion
 > ember build --environment=production
