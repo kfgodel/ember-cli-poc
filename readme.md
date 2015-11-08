@@ -24,6 +24,7 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 > sudo apt-get install python-dev
 > git clone https://github.com/facebook/watchman.git  
 > cd watchman  
+> git checkout v3.9.0
 > ./autogen.sh  
 > ./configure  
 > make  
@@ -35,7 +36,7 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 ### PhantomJs
  (fake browser)
  
-> sudo npm install -g phantomjs2
+> sudo npm install -g phantomjs
 
 
 ## Start project
@@ -58,3 +59,7 @@ Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8
 
 ## Compilar a produccion
 > ember build --environment=production
+
+## Project structure
+It follows the guidelines [from ember-cli](http://www.ember-cli.com/user-guide/#naming-conventions)
+in terms of names a and structures
