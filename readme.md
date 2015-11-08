@@ -2,7 +2,8 @@
 
 This projects test the ember tutorial using the console client.
 
-## Setup
+
+## Prerequisites
 
 ### Node
 Verify version >= 0.12
@@ -39,12 +40,32 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 > sudo npm install -g phantomjs
 
 
-## Start project
+## Setup
 
-> ember new my-new-app --skip-git  
 > cd my-new-app  
+> npm install  
+> bower install  
 > ember server  
 (Debería levantar pagina [http://localhost:4200](http://localhost:4200))
+
+## Compilar a produccion
+> ember build --environment=production
+
+## Project structure
+It follows the guidelines [from ember-cli](http://www.ember-cli.com/user-guide/#naming-conventions)
+in terms of names a and structures
+
+## Commands to create this project 
+
+> ember new my-new-app --skip-git
+> cd new my-new-app
+> bower install bootstrap --save  
+
+Add to `ember-cli-build.js`
+```
+app.import('bower_components/bootstrap/dist/css/bootstrap.css');
+```
+
 
 ### Update to ember 2.1
 Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8-project-to-use-ember-2-1-and-ember-data-2-1/) 
@@ -58,9 +79,3 @@ Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8
 > npm install  
 > bower install  
 
-## Compilar a produccion
-> ember build --environment=production
-
-## Project structure
-It follows the guidelines [from ember-cli](http://www.ember-cli.com/user-guide/#naming-conventions)
-in terms of names a and structures
