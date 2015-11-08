@@ -9,6 +9,10 @@ Router.map(function() {
 
   this.route('login');
 
+  this.route('users', function(){
+    this.route('edit', { path: "edit/:user_id" });
+  });
+
 });
 
 export default Router;
