@@ -45,8 +45,11 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 > cd my-new-app  
 > npm install  
 > bower install  
-> ember server  
-(Debería levantar pagina [http://localhost:4200](http://localhost:4200))
+> ember server --proxy http://127.0.0.1:9090  
+(Debería levantar pagina [http://localhost:4200](http://localhost:4200) y forwardear los requests al backend en localhost:9090)
+
+
+
 
 ## Compilar a produccion
 > ember build --environment=production
