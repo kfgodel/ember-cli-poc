@@ -41,7 +41,7 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 
 ## Start project
 
-> ember new my-new-app  
+> ember new my-new-app --skip-git  
 > cd my-new-app  
 > ember server  
 (Debería levantar pagina [http://localhost:4200](http://localhost:4200))
@@ -52,8 +52,9 @@ Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8
 1. Update bower.json
 2. Update package.json
 3. Update dependencies
-> rm -fR my-new-app/node_modules  
-> rm -fR my-new-app/bower_components  
+> rm -fR node_modules bower_components  
+> npm cache clean  
+> bower cache clean  
 > npm install  
 > bower install  
 
