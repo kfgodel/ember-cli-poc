@@ -14,8 +14,9 @@ Router.map(function() {
   });
 
   this.route('procedures', function () {
+    this.route('view', {path: "view/:procedure_id"});
+    this.route('edit', {path: "edit/:procedure_id"});
   });
-
 });
 
 export default Router;
