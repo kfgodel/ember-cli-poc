@@ -7,5 +7,9 @@ export default DS.RESTAdapter.extend({
   shouldReloadAll: function(){
     // We want the store to re-fetch the backend every time findAll is called (instead of using cached versions)
     return true;
+  },
+  shouldReloadRecord: function(){
+    // We want the store to re-fetch the backend every time find is called (instead of using cached versions)
+    return true;
   }
 });
