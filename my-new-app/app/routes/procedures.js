@@ -3,6 +3,6 @@ import AuthenticatedRoute from '../mixins/authenticated-route';
 
 export default Ember.Route.extend(AuthenticatedRoute, {
   model: function(){
-    return this.store.findAll('procedure');
+    return [];
   }
 });
