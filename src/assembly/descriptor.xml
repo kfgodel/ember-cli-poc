@@ -10,7 +10,7 @@
   </formats>
 
   <!-- Include the app name as a root folder inside the zip file -->
-  <includeBaseDirectory>true</includeBaseDirectory>
+  <includeBaseDirectory>false</includeBaseDirectory>
 
   <fileSets>
     <fileSet>
