@@ -3,7 +3,7 @@ import DS from 'ember-data';
 
 // Change default JSON format to avoid root object name
 // Makes backend aware of frontend type names
-export default DS.RESTSerializer.extend({
+export default DS.JSONSerializer.extend({
   extractArray: function(store, type, payload) {
     var payloadTemp = {};
     payloadTemp[type.typeKey] = payload;

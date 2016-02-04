@@ -1,6 +1,6 @@
 ## Ember-Cli POC
 
-This projects test the ember tutorial using the console client.
+This project implements the procedures frontend using ember with the ember-cli help
 
 
 ## Prerequisites
@@ -37,7 +37,7 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 ### PhantomJs
  (fake browser)
  
-> sudo npm install -g phantomjs
+> sudo npm install -g phantomjs-prebuilt
 
 
 ## Setup
@@ -60,7 +60,7 @@ in terms of names a and structures
 
 ## Commands to create this project 
 
-> ember new my-new-app --skip-git
+> ember new my-new-app --skip-gitapp
 > cd new my-new-app
 > bower install bootstrap --save  
 
@@ -81,4 +81,18 @@ Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8
 > bower cache clean  
 > npm install  
 > bower install  
+
+### Update ember-cli 2.3.0
+
+> cd my-new-app
+> sudo npm uninstall -g ember-cli
+> sudo npm cache clean
+> sudo npm install -g ember-cli@2.2.0-beta.6
+> rm -rf node_modules bower_components dist tmp
+> npm cache clean
+> bower cache clean
+> npm install --save-dev ember-cli@2.2.0-beta.6
+> npm install
+> bower install
+> ember init
 

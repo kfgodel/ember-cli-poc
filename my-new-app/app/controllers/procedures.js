@@ -13,7 +13,7 @@ export default Ember.Controller.extend({
 
   filteredProcedures: Ember.computed('nameOrDescription', function() {
     var nameOrDescription = this.get('nameOrDescription');
-    var filteredProcedures = this.store.find('procedure', {searchText: nameOrDescription});
+    var filteredProcedures = this.store.query('procedure', {searchText: nameOrDescription});
     return filteredProcedures;
   })
 });
