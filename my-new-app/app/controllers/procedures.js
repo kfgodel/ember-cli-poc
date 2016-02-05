@@ -6,8 +6,10 @@ export default Ember.Controller.extend({
   actions: {
     createProcedure: function() {
       var newRecord = this.store.createRecord('procedure', {});
-      newRecord.save();
-      this.transitionToRoute('procedures.edit', newRecord);
+      var controller = this;
+      newRecord.save().then(function(){
+        controller.transitionToRoute('procedures.edit', newRecord);
+      });
     }
   },
 

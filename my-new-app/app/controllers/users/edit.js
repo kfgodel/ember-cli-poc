@@ -7,8 +7,7 @@ export default Ember.Controller.extend({
     },
     remove: function(){
       var model = this.get('model');
-      model.deleteRecord();
-      model.save();
+      model.destroyRecord();
     }
   }
 });
