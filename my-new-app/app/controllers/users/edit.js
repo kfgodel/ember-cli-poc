@@ -10,7 +10,8 @@ export default Ember.Controller.extend({
   },
   actions: {
     save: function() {
-      this.user().save();
+      this.repo().updateUser(this.user())
+        .then(Ember.run.bind(this, this.onUserUpdated));
     },
     remove: function(){
       this.repo().deleteUser(this.user())
@@ -22,6 +23,9 @@ export default Ember.Controller.extend({
     var userList = this.user().get('containerList');
     userList.removeObject(this.user());
 
+    this.transitionToRoute('users');
+  },
+  onUserUpdated: function(){
     this.transitionToRoute('users');
   }
 });

@@ -3,9 +3,10 @@ import Ember from 'ember';
 export default Ember.Object.extend({
   getAllUsers: function(){
     return Ember.$.ajax({
-      type: "GET",
+      method: "GET",
       url: "/api/v1/users",
-      dataType: "json"
+      dataType: "json",
+      contentType: 'application/json'
     }).then(function(userTos){
       var userList = Ember.A(userTos).map(function(item){
         return Ember.Object.create(item);
@@ -19,19 +20,38 @@ export default Ember.Object.extend({
   },
   createUser: function(){
     return Ember.$.ajax({
-      type: "POST",
+      method: "POST",
       url: "/api/v1/users",
-      dataType: "json"
+      dataType: "json",
+      contentType: 'application/json'
     }).then(function(createdTo){
       return Ember.Object.create(createdTo);
+    });
+  },
+  updateUser: function(user){
+    var userId = user.get('id');
+    // This is needed only because cannot update list on delete?!
+    var sentData = {
+      name: user.get('name'),
+      login: user.get('login'),
+      password: user.get('password'),
+      id: userId
+    };
+    return Ember.$.ajax({
+      method: "PUT",
+      url: "/api/v1/users/" + userId,
+      dataType: "json",
+      contentType: 'application/json',
+      data: JSON.stringify(sentData)
     });
   },
   deleteUser: function(user){
     var userId = user.get('id');
     return Ember.$.ajax({
-      type: "DELETE",
+      method: "DELETE",
       url: "/api/v1/users/" + userId,
-      dataType: "json"
-    })
+      dataType: "json",
+      contentType: 'application/json'
+    });
   }
 });
