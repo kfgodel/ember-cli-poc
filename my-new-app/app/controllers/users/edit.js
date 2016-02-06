@@ -18,15 +18,15 @@ export default Ember.Controller.extend({
         .then(Ember.run.bind(this, this.onUserDeleted));
     }
   },
+  onUserUpdated: function(updatedUser){
+    this.user().setProperties(updatedUser);
+    this.transitionToRoute('users');
+  },
   onUserDeleted: function(){
     // Fix me please
     var userList = this.user().get('containerList');
     userList.removeObject(this.user());
 
-    this.transitionToRoute('users');
-  },
-  onUserUpdated: function(updatedUser){
-    this.user().setProperties(updatedUser);
     this.transitionToRoute('users');
   }
 });

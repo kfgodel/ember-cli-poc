@@ -1,5 +1,11 @@
 import Ember from 'ember';
 
+/**
+ * This type represents a rest resource that can be used to manipulate remote instances under that resource.
+ * It needs to be created with a namespace as root url, and the specific resource name:
+ *
+ *    RestResource.create({namespace: '/api/v1', resourceName: 'users'})
+ */
 export default Ember.Object.extend({
   rootUrl: function(){
     return this.get('namespace') || '';
