@@ -7,7 +7,14 @@ export default Ember.Object.extend({
       url: "/api/v1/users",
       dataType: "json"
     }).then(function(userTos){
-      return Ember.A(userTos);
+      var userList = Ember.A(userTos).map(function(item){
+        return Ember.Object.create(item);
+      });
+      // Hack to update list after a user delete
+      userList.forEach(function(user){
+        user.set('containerList', userList);
+      });
+      return userList;
     });
   },
   createUser: function(){
@@ -18,5 +25,13 @@ export default Ember.Object.extend({
     }).then(function(createdTo){
       return Ember.Object.create(createdTo);
     });
+  },
+  deleteUser: function(user){
+    var userId = user.get('id');
+    return Ember.$.ajax({
+      type: "DELETE",
+      url: "/api/v1/users/" + userId,
+      dataType: "json"
+    })
   }
 });

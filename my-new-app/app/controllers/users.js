@@ -10,11 +10,15 @@ export default Ember.Controller.extend({
   },
   actions: {
     create: function() {
-      var controller = this;
-      controller.repo().createUser()
-        .then(function(createdUser){
-          controller.userList().addObject(createdUser);
-        });
+      this.repo().createUser()
+        .then(Ember.run.bind(this, this.onUserCreated));
     }
+  },
+  onUserCreated: function(createdUser){
+    this.userList().addObject(createdUser);
+    //Kill me
+    createdUser.set('containerList',this.userList());
+
+    this.transitionToRoute('users.edit', createdUser);
   }
 });
