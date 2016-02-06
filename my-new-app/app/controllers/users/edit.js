@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
         .then(Ember.run.bind(this, this.onUserUpdated));
     },
     remove: function(){
-      this.repo().deleteUser(this.user())
+      this.repo().removeUser(this.user())
         .then(Ember.run.bind(this, this.onUserDeleted));
     }
   },
@@ -25,7 +25,8 @@ export default Ember.Controller.extend({
 
     this.transitionToRoute('users');
   },
-  onUserUpdated: function(){
+  onUserUpdated: function(updatedUser){
+    this.user().setProperties(updatedUser);
     this.transitionToRoute('users');
   }
 });
