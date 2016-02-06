@@ -8,6 +8,20 @@ import RestResource from './resource';
  *   RestResource.create({namespace: '/api/v1', resourceName: 'users'})
  */
 export default Ember.Object.extend({
+  getAll: function(queryParams){
+    return this.emberizing(this.resource().getAll(queryParams));
+  },
+  create: function(){
+    return this.emberizing(this.resource().create());
+  },
+  update: function(instance){
+    return this.emberizing(this.resource().update(instance));
+  },
+  remove: function(instance){
+    return this.emberizing(this.resource().remove(instance));
+  },
+
+  // PRIVATE
   init: function(){
     this.initializeResource();
   },
@@ -35,17 +49,4 @@ export default Ember.Object.extend({
       .then(Ember.run.bind(this, this.emberize))
   },
 
-  // PUBLIC
-  getAll: function(){
-    return this.emberizing(this.resource().getAll());
-  },
-  create: function(){
-    return this.emberizing(this.resource().create());
-  },
-  update: function(instance){
-    return this.emberizing(this.resource().update(instance));
-  },
-  remove: function(instance){
-    return this.emberizing(this.resource().remove(instance));
-  }
 });

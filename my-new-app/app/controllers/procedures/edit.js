@@ -1,24 +1,37 @@
 import Ember from 'ember';
+import ProcedureRepo from '../../repositories/procedures';
 
 export default Ember.Controller.extend({
   actions: {
     saveProcedure: function() {
-      var procedure = this.get('model');
-      var controller = this;
-      procedure.save().then(function(){
-        controller.transitionToRoute('procedures.view', procedure );
-      });
+      this.repo().updateProcedure(this.procedure())
+        .then(Ember.run.bind(this, this.onProcedureUpdated));
     },
     deleteProcedure: function(){
-      var model = this.get('model');
-      var controller = this;
-      model.destroyRecord().then(function(){
-        controller.transitionToRoute('procedures');
-      });
+      this.repo().removeProcedure(this.procedure())
+        .then(Ember.run.bind(this, this.onProcedureRemoved));
     },
     cancelEdition: function(){
-      var procedure = this.get('model');
-      this.transitionToRoute('procedures.view', procedure);
+      this.transitionToView();
     }
+  },
+  // PRIVATE
+  proceduresController: Ember.inject.controller('procedures'),
+  repo: function(){
+    return ProcedureRepo.create();
+  },
+  procedure: function(){
+    return this.get('model');
+  },
+  onProcedureUpdated: function(updatedTo){
+    this.procedure().setProperties(updatedTo);
+    this.transitionToView();
+  },
+  onProcedureRemoved: function(){
+    this.get('proceduresController').onProcedureRemoved(this.procedure());
+    this.transitionToRoute('procedures');
+  },
+  transitionToView: function(){
+    this.transitionToRoute('procedures.view', this.procedure() );
   }
 });

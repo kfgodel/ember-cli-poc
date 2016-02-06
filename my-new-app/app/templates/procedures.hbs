@@ -8,7 +8,7 @@
     <hr>
     <button class="btn btn-success" {{action "createProcedure"}}>Crear nuevo</button>
     <ul class="nav nav-sidebar">
-      {{#each filteredProcedures as |procedure|}}
+      {{#each model as |procedure|}}
         <li>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</li>
       {{else}}
         <li>No procedures found</li>

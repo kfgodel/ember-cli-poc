@@ -1,21 +1,37 @@
 import Ember from 'ember';
+import ProcedureRepo from '../repositories/procedures';
 
 export default Ember.Controller.extend({
   queryParams: ['nameOrDescription'],
   nameOrDescription: "",
   actions: {
     createProcedure: function() {
-      var newRecord = this.store.createRecord('procedure', {});
-      var controller = this;
-      newRecord.save().then(function(){
-        controller.transitionToRoute('procedures.edit', newRecord);
-      });
+      this.repo().createProcedure()
+        .then(Ember.run.bind(this, this.onProcedureCreated));
     }
   },
 
-  filteredProcedures: Ember.computed('nameOrDescription', function() {
+  //PRIVATE
+  repo: function(){
+    return ProcedureRepo.create();
+  },
+  onProcedureCreated: function(createdTo){
+    this.procedures().addObject(createdTo);
+    this.transitionToRoute('procedures.edit', createdTo);
+  },
+  procedures: function(){
+    return this.get('model');
+  },
+  onNameOrDescriptionChanged: Ember.observer('nameOrDescription', function() {
     var nameOrDescription = this.get('nameOrDescription');
-    var filteredProcedures = this.store.query('procedure', {searchText: nameOrDescription});
-    return filteredProcedures;
-  })
+    this.repo().getAllProceduresMathing(nameOrDescription)
+      .then(Ember.run.bind(this, this.onProceduresReloaded));
+  }),
+  onProceduresReloaded: function(loadedProcedures){
+    this.set('model', loadedProcedures);
+  },
+  onProcedureRemoved: function(removedProcedure){
+    this.procedures().removeObject(removedProcedure);
+  }
+
 });

@@ -7,6 +7,34 @@ import Ember from 'ember';
  *    RestResource.create({namespace: '/api/v1', resourceName: 'users'})
  */
 export default Ember.Object.extend({
+  getAll: function(queryParams){
+    return this.makeRequest({
+      method: "GET",
+      url: this.resourceUrl(),
+      data: queryParams
+    });
+  },
+  create: function(){
+    return this.makeRequest({
+      method: "POST",
+      url: this.resourceUrl()
+    });
+  },
+  update: function(instance){
+    return this.makeRequest({
+      method: "PUT",
+      url: this.instanceUrl(instance),
+      data: JSON.stringify(instance)
+    });
+  },
+  remove: function(instance){
+    return this.makeRequest({
+      method: "DELETE",
+      url: this.instanceUrl(instance)
+    });
+  },
+
+  // PRIVATE
   rootUrl: function(){
     return this.get('namespace') || '';
   },
@@ -27,33 +55,7 @@ export default Ember.Object.extend({
       contentType: 'application/json',
     };
     var options = Ember.merge(defaults, customizations);
-    return Ember.$.ajax(options);
+    var requestPromise = Ember.$.ajax(options);
+    return requestPromise;
   },
-  // PUBLIC
-  getAll: function(){
-    return this.makeRequest({
-        method: "GET",
-        url: this.resourceUrl()
-      });
-  },
-  create: function(){
-    return this.makeRequest({
-      method: "POST",
-      url: this.resourceUrl()
-    });
-  },
-  update: function(instance){
-    return this.makeRequest({
-      method: "PUT",
-      url: this.instanceUrl(instance),
-      data: JSON.stringify(instance)
-    });
-  },
-  remove: function(instance){
-    return this.makeRequest({
-      method: "DELETE",
-      url: this.instanceUrl(instance)
-    });
-  }
-
 });
