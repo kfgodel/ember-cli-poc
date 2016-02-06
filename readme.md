@@ -69,19 +69,6 @@ Add to `ember-cli-build.js`
 app.import('bower_components/bootstrap/dist/css/bootstrap.css');
 ```
 
-
-### Update to ember 2.1
-Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8-project-to-use-ember-2-1-and-ember-data-2-1/) 
-
-1. Update bower.json
-2. Update package.json
-3. Update dependencies
-> rm -fR node_modules bower_components  
-> npm cache clean  
-> bower cache clean  
-> npm install  
-> bower install  
-
 ### Update ember-cli 2.3.0
 
 > cd my-new-app
@@ -96,3 +83,6 @@ Taken from [this page](http://levvel.io/blog-post/upgrade-a-new-ember-cli-1-13-8
 > bower install
 > ember init
 
+
+## Reference Stuff
+Ember Object: http://ember.vicramon.com/the-ember-object

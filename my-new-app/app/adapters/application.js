@@ -1,6 +1,4 @@
-import Ember from 'ember';
 import DS from 'ember-data';
-import loginRoute from '../routes/login';
 
 export default DS.JSONAPIAdapter.extend({
   namespace: 'api/v1',

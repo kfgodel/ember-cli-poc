@@ -25,7 +25,7 @@ export default Ember.Route.extend({
     logout: function() {
       var self = this;
       Ember.$.post("/j_logout", {}).then(
-        function(response) {
+        function(/* response */) {
           var loginController = self.controllerFor('login');
           loginController.set('authenticated', null);
           self.transitionTo('login');

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-/* global moment */
+/* global marked */
 
 export function markdownAshtml(params/*, hash*/) {
   var value = params[0];
