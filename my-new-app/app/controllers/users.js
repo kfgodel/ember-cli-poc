@@ -16,9 +16,9 @@ export default Ember.Controller.extend({
   },
   onUserCreated: function(createdUser){
     this.userList().addObject(createdUser);
-    //Kill me
-    createdUser.set('containerList',this.userList());
-
     this.transitionToRoute('users.edit', createdUser);
+  },
+  onUserRemoved: function(removedUser){
+    this.userList().removeObject(removedUser);
   }
 });

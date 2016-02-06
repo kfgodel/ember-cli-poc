@@ -2,6 +2,7 @@ import Ember from 'ember';
 import UserRepo from '../../repositories/users';
 
 export default Ember.Controller.extend({
+  usersController: Ember.inject.controller('users'),
   repo: function(){
     return UserRepo.create();
   },
@@ -15,18 +16,15 @@ export default Ember.Controller.extend({
     },
     remove: function(){
       this.repo().removeUser(this.user())
-        .then(Ember.run.bind(this, this.onUserDeleted));
+        .then(Ember.run.bind(this, this.onUserRemoved));
     }
   },
   onUserUpdated: function(updatedUser){
     this.user().setProperties(updatedUser);
     this.transitionToRoute('users');
   },
-  onUserDeleted: function(){
-    // Fix me please
-    var userList = this.user().get('containerList');
-    userList.removeObject(this.user());
-
+  onUserRemoved: function(){
+    this.get('usersController').onUserRemoved(this.user());
     this.transitionToRoute('users');
   }
 });

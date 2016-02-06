@@ -17,14 +17,7 @@ export default Ember.Object.extend({
     return parentUrl + '/' + subElement;
   },
   instanceUrl: function (instance) {
-    var instanceId;
-    if(instance.get){
-      instanceId = instance.get('id');
-    }else{
-      // REMOVE me
-      instanceId = instance.id;
-    }
-
+    var instanceId = instance.get('id');
     var elementUrl = this.subUrl(this.resourceUrl(), instanceId);
     return elementUrl;
   },
