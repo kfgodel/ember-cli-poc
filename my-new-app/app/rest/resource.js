@@ -14,6 +14,12 @@ export default Ember.Object.extend({
       data: queryParams
     });
   },
+  getSingle: function(instanceId){
+    return this.makeRequest({
+      method: "GET",
+      url: this.instanceUrl(instanceId)
+    });
+  },
   create: function(){
     return this.makeRequest({
       method: "POST",
@@ -23,14 +29,14 @@ export default Ember.Object.extend({
   update: function(instance){
     return this.makeRequest({
       method: "PUT",
-      url: this.instanceUrl(instance),
+      url: this.urlFor(instance),
       data: JSON.stringify(instance)
     });
   },
   remove: function(instance){
     return this.makeRequest({
       method: "DELETE",
-      url: this.instanceUrl(instance)
+      url: this.urlFor(instance)
     });
   },
 
@@ -44,8 +50,11 @@ export default Ember.Object.extend({
   subUrl: function(parentUrl, subElement){
     return parentUrl + '/' + subElement;
   },
-  instanceUrl: function (instance) {
+  urlFor: function (instance) {
     var instanceId = instance.get('id');
+    return this.instanceUrl(instanceId);
+  },
+  instanceUrl: function (instanceId) {
     var elementUrl = this.subUrl(this.resourceUrl(), instanceId);
     return elementUrl;
   },

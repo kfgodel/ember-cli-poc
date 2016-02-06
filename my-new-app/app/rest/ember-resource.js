@@ -11,6 +11,9 @@ export default Ember.Object.extend({
   getAll: function(queryParams){
     return this.emberizing(this.resource().getAll(queryParams));
   },
+  getSingle: function(instanceId){
+    return this.emberizing(this.resource().getSingle(instanceId));
+  },
   create: function(){
     return this.emberizing(this.resource().create());
   },
