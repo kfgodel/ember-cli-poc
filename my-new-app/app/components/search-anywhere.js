@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import Router from '../router'
 
 export default Ember.Component.extend({
   searchText: '',
