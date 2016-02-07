@@ -16,8 +16,8 @@ Router.map(function() {
   this.route('procedures', function () {
     this.route('view', {path: "view/:procedure_id"});
     this.route('edit', {path: "edit/:procedure_id"});
+    this.route('filter');
   });
-  this.route('filter', {path: 'filter/:filterText'});
 
   // Catches all the malformed urls (not matching previous routes)
   this.route('wrong-paths', { path: '/*wrong-paths' });

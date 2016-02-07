@@ -7,7 +7,7 @@ export default Ember.Component.extend({
     search(){
       var appController = this.get('container').lookup('controller:application');
       var filterText = this.get('searchText');
-      appController.transitionToRoute('filter', filterText);
+      appController.transitionToRoute('procedures.filter', {queryParams: {filterText: filterText}});
     }
   },
 });

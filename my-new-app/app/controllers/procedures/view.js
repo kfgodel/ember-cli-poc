@@ -13,7 +13,6 @@ export default Ember.Controller.extend({
     }
   },
   // PRIVATE
-  proceduresController: Ember.inject.controller('procedures'),
   repo: function(){
     return ProcedureRepo.create();
   },
@@ -21,8 +20,7 @@ export default Ember.Controller.extend({
     return this.get('model');
   },
   onProcedureRemoved: function(){
-    this.get('proceduresController').onProcedureRemoved(this.procedure());
-    this.transitionToRoute('procedures');
+    this.transitionToRoute('procedures.filter');
   },
 
 });

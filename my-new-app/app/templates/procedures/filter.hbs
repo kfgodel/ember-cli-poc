@@ -1,0 +1,33 @@
+<!-- Procedure list -->
+<button class="btn btn-success" {{action "createProcedure"}}>Crear nuevo</button>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      {{#each model as |procedure| }}
+        <tr>
+          <td>{{#link-to 'procedures.view' procedure}}{{procedure.id}}{{/link-to}}</td>
+          <td>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan="4">No procedures found</td>
+        </tr>
+      {{/each}}
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>{{model.length}}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
