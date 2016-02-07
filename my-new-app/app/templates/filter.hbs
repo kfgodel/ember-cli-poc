@@ -1,0 +1,16 @@
+{{navigation-bar}}
+
+<div class="row">
+
+  <!-- Procedure list -->
+  <div class="col-sm-12">
+    <ul>
+      {{#each model as |procedure|}}
+        <li>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</li>
+      {{else}}
+        <li>No procedures found</li>
+      {{/each}}
+    </ul>
+  </div>
+
+</div>
