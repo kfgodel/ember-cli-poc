@@ -48,7 +48,7 @@ export default Ember.Object.extend({
     return this.subUrl(this.rootUrl(), this.get('resourceName'));
   },
   subUrl: function(parentUrl, subElement){
-    return parentUrl + '/' + subElement;
+    return `${parentUrl}/${subElement}`;
   },
   urlFor: function (instance) {
     var instanceId = instance.get('id');
