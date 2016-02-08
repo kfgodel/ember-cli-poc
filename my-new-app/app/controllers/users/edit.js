@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import UserRepositored from '../../mixins/user-repositored';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(UserRepositored, {
   actions: {
     save: function() {
       this.repo().updateUser(this.user())
@@ -13,11 +14,7 @@ export default Ember.Controller.extend({
   },
 
   // PRIVATE
-  repositoryLocator: Ember.inject.service('repository-locator'),
   usersController: Ember.inject.controller('users'),
-  repo: function(){
-    return this.get('repositoryLocator').users();
-  },
   user: function(){
     return this.get('model');
   },

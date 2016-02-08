@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ProcedureRepositored from '../../mixins/procedure-repositored';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(ProcedureRepositored, {
   actions: {
     createProcedure: function() {
       this.repo().createProcedure()
@@ -9,10 +10,6 @@ export default Ember.Controller.extend({
   },
 
   //PRIVATE
-  repositoryLocator: Ember.inject.service('repository-locator'),
-  repo: function(){
-    return this.get('repositoryLocator').procedures();
-  },
   onProcedureCreated: function(createdTo){
     this.transitionToRoute('procedures.edit', createdTo);
   },

@@ -1,13 +1,10 @@
 import Ember from 'ember';
 import AuthenticatedRoute from '../../mixins/authenticated-route';
+import ProcedureRepositored from '../../mixins/procedure-repositored';
 
-export default Ember.Route.extend(AuthenticatedRoute, {
+export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, {
   model: function(params){
-    return this.repo().getProcedure(params.procedure_id);
-  },
-  // PRIVATE
-  repositoryLocator: Ember.inject.service('repository-locator'),
-  repo: function(){
-    return this.get('repositoryLocator').procedures();
+    var procedureId = params.procedure_id;
+    return this.repo().getProcedure(procedureId);
   },
 });

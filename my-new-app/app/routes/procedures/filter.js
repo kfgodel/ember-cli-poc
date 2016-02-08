@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import AuthenticatedRoute from '../../mixins/authenticated-route';
+import ProcedureRepositored from '../../mixins/procedure-repositored';
 
-export default Ember.Route.extend(AuthenticatedRoute, {
+export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, {
   queryParams:{
     filterText:{
       refreshModel: true,  // Refresh the model whenever phylum changes
@@ -11,10 +12,4 @@ export default Ember.Route.extend(AuthenticatedRoute, {
     var filterText = params.filterText;
     return this.repo().getAllProceduresMathing(filterText);
   },
-  // PRIVATE
-  repositoryLocator: Ember.inject.service('repository-locator'),
-  repo: function(){
-    return this.get('repositoryLocator').procedures();
-  },
-
 });
