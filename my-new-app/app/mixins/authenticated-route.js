@@ -7,10 +7,14 @@ import Ember from 'ember';
  */
 export default Ember.Mixin.create({
   beforeModel: function(transition) {
-    var loginController = this.controllerFor('login');
-    if (!loginController.get('authenticated')) {
-      loginController.set('previousTransition', transition);
-      this.transitionTo('login');
-    }
-  }
+    var authenticator = this.get('authenticator');
+    authenticator.ifNotAuthenticated(()=>{
+      this.transitionTo('authenticating');
+      authenticator.afterAuthentication(function(){
+        transition.retry();
+      });
+    });
+  },
+  // PRIVATE
+  authenticator: Ember.inject.service('authenticator'),
 });

@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import Requester from './requester';
 
 /**
  * This type represents a rest resource that can be used to manipulate remote instances under that resource.
@@ -59,12 +60,6 @@ export default Ember.Object.extend({
     return elementUrl;
   },
   makeRequest: function(customizations){
-    var defaults = {
-      dataType: 'json',
-      contentType: 'application/json',
-    };
-    var options = Ember.merge(defaults, customizations);
-    var requestPromise = Ember.$.ajax(options);
-    return requestPromise;
+    return Requester.create().makeRequest(customizations);
   },
 });

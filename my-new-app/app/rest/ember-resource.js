@@ -6,7 +6,7 @@ import RestResource from './resource';
  * handles ember objects as resource instances (converts ingoing and outgoing objects if needed).
  * This allows the client code to use ember objects in any case
  *
- *   RestResource.create({namespace: '/api/v1', resourceName: 'users'})
+ *   EmberResource.create({namespace: '/api/v1', resourceName: 'users'})
  */
 export default Ember.Object.extend({
   getAll: function(queryParams){
@@ -50,7 +50,7 @@ export default Ember.Object.extend({
   },
   emberizing: function(promise){
     return promise
-      .then(Ember.run.bind(this, this.emberize))
+      .then(Ember.run.bind(this, this.emberize));
   },
 
 });
