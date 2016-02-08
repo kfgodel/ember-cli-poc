@@ -34,6 +34,6 @@ export default Ember.Controller.extend({
     this.changeErrorMessage(errorMessage);
   },
   changeErrorMessage(newMessage){
-    this.set("errorMessage", newMessage)
+    this.set("errorMessage", newMessage);
   }
 });

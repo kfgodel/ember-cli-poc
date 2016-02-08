@@ -1,14 +1,6 @@
 import Ember from 'ember';
-import UserRepo from '../../repositories/users';
 
 export default Ember.Controller.extend({
-  usersController: Ember.inject.controller('users'),
-  repo: function(){
-    return UserRepo.create();
-  },
-  user: function(){
-    return this.get('model');
-  },
   actions: {
     save: function() {
       this.repo().updateUser(this.user())
@@ -18,6 +10,16 @@ export default Ember.Controller.extend({
       this.repo().removeUser(this.user())
         .then(Ember.run.bind(this, this.onUserRemoved));
     }
+  },
+
+  // PRIVATE
+  repositoryLocator: Ember.inject.service('repository-locator'),
+  usersController: Ember.inject.controller('users'),
+  repo: function(){
+    return this.get('repositoryLocator').users();
+  },
+  user: function(){
+    return this.get('model');
   },
   onUserUpdated: function(updatedUser){
     this.user().setProperties(updatedUser);

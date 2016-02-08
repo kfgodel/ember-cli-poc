@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import ProcedureRepo from '../../repositories/procedures';
 
 export default Ember.Controller.extend({
   actions: {
@@ -10,8 +9,9 @@ export default Ember.Controller.extend({
   },
 
   //PRIVATE
+  repositoryLocator: Ember.inject.service('repository-locator'),
   repo: function(){
-    return ProcedureRepo.create();
+    return this.get('repositoryLocator').procedures();
   },
   onProcedureCreated: function(createdTo){
     this.transitionToRoute('procedures.edit', createdTo);

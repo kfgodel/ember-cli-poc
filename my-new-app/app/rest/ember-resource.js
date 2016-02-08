@@ -3,10 +3,10 @@ import RestResource from './resource';
 
 /**
  * This type represents a backend rest resource. In contrast to a simple RestResource, this type
- * handles ember objects as resource instances (converts ingoing and outgoing objects if needed).
- * This allows the client code to use ember objects in any case
+ * handles ember objects as resource entities (converts ingoing and outgoing objects if needed).
+ * This allows the client code to use ember instead of plain javascript objects
  *
- *   EmberResource.create({namespace: '/api/v1', resourceName: 'users'})
+ *   EmberResource.create({resourceName: 'users', resourceLocator: aResourceLocator})
  */
 export default Ember.Object.extend({
   getAll: function(queryParams){
@@ -26,12 +26,13 @@ export default Ember.Object.extend({
   },
 
   // PRIVATE
+  resourceLocator: Ember.inject.service("resource-locator"),
   init: function(){
     this.initializeResource();
   },
   initializeResource: function(){
     var createdResource = RestResource.create({
-      namespace: this.get('namespace'),
+      resourceLocator: this.get('resourceLocator'),
       resourceName: this.get('resourceName')
     });
     this.set('restResource', createdResource);

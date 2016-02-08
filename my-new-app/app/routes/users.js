@@ -1,10 +1,11 @@
 import Ember from 'ember';
 import AuthenticatedRoute from '../mixins/authenticated-route';
-import UserRepo from '../repositories/users';
 
 export default Ember.Route.extend(AuthenticatedRoute, {
   model: function(){
-    var repo = UserRepo.create();
+    var repo = this.get('repositoryLocator').users();
     return repo.getAllUsers();
-  }
+  },
+  // PRIVATE
+  repositoryLocator: Ember.inject.service('repository-locator'),
 });

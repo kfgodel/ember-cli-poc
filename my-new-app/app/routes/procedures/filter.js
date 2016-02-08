@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import AuthenticatedRoute from '../../mixins/authenticated-route';
-import ProcedureRepo from '../../repositories/procedures';
 
 export default Ember.Route.extend(AuthenticatedRoute, {
   queryParams:{
@@ -10,7 +9,12 @@ export default Ember.Route.extend(AuthenticatedRoute, {
   },
   model: function(params){
     var filterText = params.filterText;
-    var repo = ProcedureRepo.create();
-    return repo.getAllProceduresMathing(filterText);
-  }
+    return this.repo().getAllProceduresMathing(filterText);
+  },
+  // PRIVATE
+  repositoryLocator: Ember.inject.service('repository-locator'),
+  repo: function(){
+    return this.get('repositoryLocator').procedures();
+  },
+
 });

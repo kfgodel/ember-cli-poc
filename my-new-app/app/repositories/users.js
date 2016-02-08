@@ -3,7 +3,7 @@ import EmberResource from '../rest/ember-resource';
 
 export default Ember.Object.extend({
   userResource: function(){
-    return EmberResource.create({namespace: '/api/v1', resourceName: 'users'});
+    return EmberResource.create({resourceName: 'users', resourceLocator: this.get('resourceLocator')});
   },
   getAllUsers: function(){
     return this.userResource().getAll();

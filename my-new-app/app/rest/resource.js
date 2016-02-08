@@ -2,10 +2,10 @@ import Ember from 'ember';
 import Requester from './requester';
 
 /**
- * This type represents a rest resource that can be used to manipulate remote instances under that resource.
- * It needs to be created with a namespace as root url, and the specific resource name:
+ * This type represents a rest resource that can be used to manipulate remote instances under that rest url.
+ * It needs to be created with a resource name and a locator to address the url
  *
- *    RestResource.create({namespace: '/api/v1', resourceName: 'users'})
+ *    RestResource.create({resourceName: 'users', resourceLocator: aResourceLocator})
  */
 export default Ember.Object.extend({
   getAll: function(queryParams){
@@ -18,7 +18,7 @@ export default Ember.Object.extend({
   getSingle: function(instanceId){
     return this.makeRequest({
       method: "GET",
-      url: this.instanceUrl(instanceId)
+      url: this.entityIdUrl(instanceId)
     });
   },
   create: function(){
@@ -30,34 +30,31 @@ export default Ember.Object.extend({
   update: function(instance){
     return this.makeRequest({
       method: "PUT",
-      url: this.urlFor(instance),
+      url: this.entityUrl(instance),
       data: JSON.stringify(instance)
     });
   },
   remove: function(instance){
     return this.makeRequest({
       method: "DELETE",
-      url: this.urlFor(instance)
+      url: this.entityUrl(instance)
     });
   },
 
   // PRIVATE
-  rootUrl: function(){
-    return this.get('namespace') || '';
+  locator(){
+    return this.get('resourceLocator');
   },
   resourceUrl: function(){
-    return this.subUrl(this.rootUrl(), this.get('resourceName'));
+    var resourceName = this.get('resourceName');
+    return this.locator().resourceUrl(resourceName);
   },
-  subUrl: function(parentUrl, subElement){
-    return `${parentUrl}/${subElement}`;
-  },
-  urlFor: function (instance) {
+  entityUrl: function (instance) {
     var instanceId = instance.get('id');
-    return this.instanceUrl(instanceId);
+    return this.entityIdUrl(instanceId);
   },
-  instanceUrl: function (instanceId) {
-    var elementUrl = this.subUrl(this.resourceUrl(), instanceId);
-    return elementUrl;
+  entityIdUrl(instanceId){
+    return this.locator().entityUrl(this.get('resourceName'), instanceId);
   },
   makeRequest: function(customizations){
     return Requester.create().makeRequest(customizations);

@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import EmberResource from '../rest/ember-resource';
 
 export default Ember.Service.extend({
   authenticationState: Ember.Object.create({authenticated: false, message: '...'}),
@@ -17,7 +16,8 @@ export default Ember.Service.extend({
     return this.state();
   },
   login(credentials){
-    return Ember.$.post("/j_security_check", {
+    var loginUrl = this.locator().loginUrl();
+    return Ember.$.post(loginUrl, {
       j_username: credentials.login,
       j_password: credentials.password })
       .then(Ember.run.bind(this, this.onUserLoggedIn));
@@ -30,10 +30,15 @@ export default Ember.Service.extend({
   state(){
     return this.get('authenticationState');
   },
+  resourceLocator: Ember.inject.service('resource-locator'),
+  locator(){
+    return this.get('resourceLocator');
+  },
   engageServerSession(){
+    var sessionUrl = this.locator().resourceUrl('session');
     Ember.$.ajax({
       method: 'GET',
-      url: '/api/v1/session',
+      url: sessionUrl,
     }).then(Ember.run.bind(this, this.onSessionAvailable),
             Ember.run.bind(this, this.onRequestError));
   },
