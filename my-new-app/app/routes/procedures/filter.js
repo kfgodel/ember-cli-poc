@@ -22,11 +22,11 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, Auth
   },
   // PRIVATE
   onModelUnauthorized(filterText){
+    this.transitionTo('login');
     this.authenticator().restartAndAfterAuthentication(()=>{
       this.transitionTo('procedures.filter',  {
         queryParams: {filterText: filterText}
       });
     });
-    this.transitionTo('login');
   },
 });
