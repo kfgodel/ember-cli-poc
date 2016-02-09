@@ -1,5 +1,5 @@
 export default function ServerPromiseHandler(){
-  var noOp = function(){};
+  var noOp = function(value){return value;};
   var handlers = {
     successHandler: noOp,
     unauthorizedHandler: noOp,
@@ -16,10 +16,14 @@ export default function ServerPromiseHandler(){
   this.orElse = function(elseHandler){
     handlers.elseHandler = elseHandler;
     // The array must be splatted to handle both cases of 'then()'
-    return [handlers.successHandler, this.errorHandler];
+    return this.handlers();
+  };
+  this.handlers = function(){
+    return [handlers.successHandler, this.errorDiscriminatorHandler];
   };
 
-  this.errorHandler = function(response){
+  // PRIVATE
+  this.errorDiscriminatorHandler = function(response){
     var statusCode = response.status;
     if(statusCode === 401){
       handlers.unauthorizedHandler();

@@ -1,10 +1,9 @@
 import Ember from 'ember';
+import Authenticatored from '../mixins/authenticatored';
 
-export default Ember.Route.extend({
+
+export default Ember.Route.extend(Authenticatored, {
   model(){
-    var authenticator = this.get('authenticator');
-    return authenticator.authenticate();
+    return this.authenticator().authenticate();
   },
-  // PRIVATE
-  authenticator: Ember.inject.service('authenticator'),
 });

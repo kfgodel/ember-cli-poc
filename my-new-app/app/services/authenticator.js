@@ -23,6 +23,10 @@ export default Ember.Service.extend({
       j_password: credentials.password })
       .then(Ember.run.bind(this, this.onUserLoggedIn));
   },
+  restartAndAfterAuthentication(action){
+    this.markAsNotAuthenticated();
+    this.afterAuthentication(action);
+  },
 
   // PRIVATE
   isAuthenticated(){
@@ -42,7 +46,7 @@ export default Ember.Service.extend({
       url: sessionUrl,
     }).then(...new ServerPromiseHandler()
         .whenSuccess(Ember.run.bind(this, this.onSessionAvailable))
-        .whenUnauthorized(Ember.run.bind(this, this.onSessionLost))
+        .whenUnauthorized(Ember.run.bind(this, this.onSessionMissing))
         .orElse(Ember.run.bind(this, this.onRequestError))
       );
   },
@@ -55,6 +59,10 @@ export default Ember.Service.extend({
     this.state().set('authenticated', true);
     this.changeStateMessageTo('OK!');
   },
+  markAsNotAuthenticated(){
+    this.state().set('authenticated', false);
+    this.changeStateMessageTo('...');
+  },
   postAuthenticationAction(){
     var pendingAction = this.get('actionAfterAuthentication');
     this.set('actionAfterAuthentication', null);
@@ -66,7 +74,7 @@ export default Ember.Service.extend({
   changeStateMessageTo(newMessage){
     this.state().set('message', newMessage);
   },
-  onSessionLost(){
+  onSessionMissing(){
     this.makeUserLogin();
   },
   onRequestError(response){

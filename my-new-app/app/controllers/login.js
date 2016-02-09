@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import ServerPromiseHandler from '../rest/server-promise-handler';
+import Authenticatored from '../mixins/authenticatored';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(Authenticatored, {
   actions: {
     logIn: function() {
       this.requestLogin();
@@ -9,13 +10,12 @@ export default Ember.Controller.extend({
   },
 
   // PRIVATE
-  authenticator: Ember.inject.service('authenticator'),
   credentials(){
     return this.get('model');
   },
   requestLogin(){
     var credentials = this.credentials();
-    return this.get('authenticator').login(credentials)
+    return this.authenticator().login(credentials)
       .then(...new ServerPromiseHandler()
         .whenSuccess(Ember.run.bind(this, this.onSuccessfulLogin))
         .whenUnauthorized(Ember.run.bind(this, this.onBadCredentials))
@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
       );
   },
   onSuccessfulLogin(){
-    this.changeErrorMessage("Success!");
+    this.changeErrorMessage("");
   },
   onBadCredentials(){
     this.changeErrorMessage("Invalid credentials");
