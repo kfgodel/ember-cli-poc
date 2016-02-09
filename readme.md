@@ -52,7 +52,10 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 
 
 ## Compilar a produccion
-> ember build --environment=production
+> ember build --environment=production  
+> cd ..  
+> mvn install
+
 
 ## Project structure
 It follows the guidelines [from ember-cli](http://www.ember-cli.com/user-guide/#naming-conventions)
