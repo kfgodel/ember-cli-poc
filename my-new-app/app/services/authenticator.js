@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ServerErrorHandler from '../rest/server-error';
 
 export default Ember.Service.extend({
   authenticationState: Ember.Object.create({authenticated: false, message: '...'}),
@@ -39,8 +40,12 @@ export default Ember.Service.extend({
     Ember.$.ajax({
       method: 'GET',
       url: sessionUrl,
-    }).then(Ember.run.bind(this, this.onSessionAvailable),
-            Ember.run.bind(this, this.onRequestError));
+    }).then(
+      Ember.run.bind(this, this.onSessionAvailable),
+      new ServerErrorHandler()
+        .whenUnauthorized(Ember.run.bind(this, this.onSessionLost))
+        .orElse(Ember.run.bind(this, this.onRequestError))
+      );
   },
   onSessionAvailable(){
     this.markAsAuthenticated();
@@ -62,15 +67,12 @@ export default Ember.Service.extend({
   changeStateMessageTo(newMessage){
     this.state().set('message', newMessage);
   },
+  onSessionLost(){
+    this.makeUserLogin();
+  },
   onRequestError(response){
-    var statusCode = response.status;
-    if(statusCode === 401){
-      // There¡s no active session. We need the user to create one
-      this.makeUserLogin();
-    }else{
-      // Display the error. Probably nothing else to do on our side. Server down?
-      this.changeStateMessageTo(`${statusCode} - ${response.statusText}`);
-    }
+    // Display the error. Probably nothing else to do on our side. Server down?
+    this.changeStateMessageTo(`${response.status} - ${response.statusText}`);
   },
   routing: Ember.inject.service('-routing'),
   makeUserLogin(){

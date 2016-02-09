@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import ServerErrorHandler from '../rest/server-error';
 
 export default Ember.Controller.extend({
   actions: {
@@ -17,20 +18,19 @@ export default Ember.Controller.extend({
     return this.get('authenticator').login(credentials)
       .then(
         Ember.run.bind(this, this.onSuccessfulLogin),
-        Ember.run.bind(this, this.onRequestError)
+        new ServerErrorHandler()
+          .whenUnauthorized(Ember.run.bind(this, this.onBadCredentials))
+          .orElse(Ember.run.bind(this, this.onRequestError))
       );
   },
   onSuccessfulLogin(){
     this.changeErrorMessage("Success!");
   },
+  onBadCredentials(){
+    this.changeErrorMessage("Invalid credentials");
+  },
   onRequestError(response){
-    var statusCode = response.status;
-    var errorMessage;
-    if(statusCode === 401){
-      errorMessage = "Invalid credentials";
-    }else{
-      errorMessage = "Unknown error: " + statusCode + " - " + response.statusText;
-    }
+    var errorMessage = `Unknown error: ${response.status} - ${response.statusText}`;
     this.changeErrorMessage(errorMessage);
   },
   changeErrorMessage(newMessage){
