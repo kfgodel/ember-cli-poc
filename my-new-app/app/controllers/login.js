@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ServerErrorHandler from '../rest/server-error';
+import ServerErrorHandler from '../rest/server-error-handler';
 
 export default Ember.Controller.extend({
   actions: {
