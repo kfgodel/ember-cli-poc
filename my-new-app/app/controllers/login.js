@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ServerErrorHandler from '../rest/server-error-handler';
+import ServerPromiseHandler from '../rest/server-promise-handler';
 
 export default Ember.Controller.extend({
   actions: {
@@ -16,11 +16,10 @@ export default Ember.Controller.extend({
   requestLogin(){
     var credentials = this.credentials();
     return this.get('authenticator').login(credentials)
-      .then(
-        Ember.run.bind(this, this.onSuccessfulLogin),
-        new ServerErrorHandler()
-          .whenUnauthorized(Ember.run.bind(this, this.onBadCredentials))
-          .orElse(Ember.run.bind(this, this.onRequestError))
+      .then(...new ServerPromiseHandler()
+        .whenSuccess(Ember.run.bind(this, this.onSuccessfulLogin))
+        .whenUnauthorized(Ember.run.bind(this, this.onBadCredentials))
+        .orElse(Ember.run.bind(this, this.onRequestError))
       );
   },
   onSuccessfulLogin(){

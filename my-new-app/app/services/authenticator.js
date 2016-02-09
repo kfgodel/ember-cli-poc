@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ServerErrorHandler from '../rest/server-error-handler';
+import ServerPromiseHandler from '../rest/server-promise-handler';
 
 export default Ember.Service.extend({
   authenticationState: Ember.Object.create({authenticated: false, message: '...'}),
@@ -40,9 +40,8 @@ export default Ember.Service.extend({
     Ember.$.ajax({
       method: 'GET',
       url: sessionUrl,
-    }).then(
-      Ember.run.bind(this, this.onSessionAvailable),
-      new ServerErrorHandler()
+    }).then(...new ServerPromiseHandler()
+        .whenSuccess(Ember.run.bind(this, this.onSessionAvailable))
         .whenUnauthorized(Ember.run.bind(this, this.onSessionLost))
         .orElse(Ember.run.bind(this, this.onRequestError))
       );
