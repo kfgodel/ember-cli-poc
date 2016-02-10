@@ -15,13 +15,13 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, Auth
     return this.repo().getAllProceduresMathing(filterText)
       .then(...new ServerPromiseHandler()
         .whenUnauthorized(()=>{
-          this.onModelUnauthorized(filterText);
+          this.onRequestUnauthorized(filterText);
         })
         .handlers()
       );
   },
   // PRIVATE
-  onModelUnauthorized(filterText){
+  onRequestUnauthorized(filterText){
     this.transitionTo('login');
     this.authenticator().restartAndAfterAuthentication(()=>{
       this.transitionTo('procedures.filter',  {

@@ -9,7 +9,7 @@ export default Ember.Controller.extend(UserRepositored, Authenticatored, {
       this.repo().createUser()
         .then(...new ServerPromiseHandler()
           .whenSuccess(Ember.run.bind(this, this.onUserCreated))
-          .whenUnauthorized(Ember.run.bind(this, this.onUserCreationUnauthorized))
+          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
           .handlers()
         );
     }
@@ -25,7 +25,7 @@ export default Ember.Controller.extend(UserRepositored, Authenticatored, {
     this.userList().addObject(createdUser);
     this.transitionToRoute('users.edit', createdUser);
   },
-  onUserCreationUnauthorized(){
+  onRequestUnauthorized(){
     this.transitionToRoute('login');
     this.authenticator().restartAndAfterAuthentication(()=>{
       this.transitionToRoute('users');

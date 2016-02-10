@@ -1,15 +1,25 @@
 import Ember from 'ember';
 import ProcedureRepositored from '../../mixins/procedure-repositored';
+import ServerPromiseHandler from '../../rest/server-promise-handler';
+import Authenticatored from '../../mixins/authenticatored';
 
-export default Ember.Controller.extend(ProcedureRepositored, {
+export default Ember.Controller.extend(ProcedureRepositored, Authenticatored, {
   actions: {
     saveProcedure: function() {
       this.repo().updateProcedure(this.procedure())
-        .then(Ember.run.bind(this, this.onProcedureUpdated));
+        .then(...new ServerPromiseHandler()
+          .whenSuccess(Ember.run.bind(this, this.onProcedureUpdated))
+          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
+          .handlers()
+        );
     },
     deleteProcedure: function(){
       this.repo().removeProcedure(this.procedure())
-        .then(Ember.run.bind(this, this.onProcedureRemoved));
+        .then(...new ServerPromiseHandler()
+          .whenSuccess(Ember.run.bind(this, this.onProcedureRemoved))
+          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
+          .handlers()
+        );
     },
     cancelEdition: function(){
       this.transitionToView();
@@ -28,5 +38,11 @@ export default Ember.Controller.extend(ProcedureRepositored, {
   },
   transitionToView: function(){
     this.transitionToRoute('procedures.view', this.procedure() );
-  }
+  },
+  onRequestUnauthorized(){
+    this.transitionToRoute('login');
+    this.authenticator().restartAndAfterAuthentication(()=>{
+      this.transitionToRoute('procedures.edit', this.procedure());
+    });
+  },
 });
