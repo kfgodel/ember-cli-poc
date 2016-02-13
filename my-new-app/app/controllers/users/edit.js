@@ -37,8 +37,7 @@ export default Ember.Controller.extend(UserRepositored, Authenticatored, {
     this.transitionToRoute('users');
   },
   onRequestUnauthorized(){
-    this.transitionToRoute('login');
-    this.authenticator().restartAndAfterAuthentication(()=>{
+    this.authenticator().reauthenticateAndThen(()=>{
       this.transitionToRoute('users.edit', this.user());
     });
   }

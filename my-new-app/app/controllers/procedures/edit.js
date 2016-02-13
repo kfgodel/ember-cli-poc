@@ -40,9 +40,9 @@ export default Ember.Controller.extend(ProcedureRepositored, Authenticatored, {
     this.transitionToRoute('procedures.view', this.procedure() );
   },
   onRequestUnauthorized(){
-    this.transitionToRoute('login');
-    this.authenticator().restartAndAfterAuthentication(()=>{
+    this.authenticator().reauthenticateAndThen(()=>{
       this.transitionToRoute('procedures.edit', this.procedure());
     });
   },
+
 });

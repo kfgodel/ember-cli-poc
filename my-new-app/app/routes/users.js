@@ -17,8 +17,7 @@ export default Ember.Route.extend(AuthenticatedRoute, UserRepositored, Authentic
   },
   // PRIVATE
   onRequestUnauthorized(){
-    this.transitionTo('login');
-    this.authenticator().restartAndAfterAuthentication(()=>{
+    this.authenticator().reauthenticateAndThen(()=>{
       this.transitionTo('users');
     });
   },

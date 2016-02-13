@@ -23,9 +23,10 @@ export default Ember.Service.extend({
       j_password: credentials.password })
       .then(Ember.run.bind(this, this.onUserLoggedIn));
   },
-  restartAndAfterAuthentication(action){
+  reauthenticateAndThen(action){
     this.markAsNotAuthenticated();
     this.afterAuthentication(action);
+    this.makeUserLogin();
   },
 
   // PRIVATE
@@ -95,5 +96,20 @@ export default Ember.Service.extend({
   },
   onUserLoggedIn(){
     this.onSessionAvailable();
+  },
+  currentUrl(){
+    var completeUrl = window.location.href;
+    var protocolSeparator = completeUrl.indexOf('//');
+    if(protocolSeparator === -1){
+      // The url is not as expected, return wathever it is
+      return completeUrl;
+    }
+    var hostSeparator = completeUrl.indexOf("/", protocolSeparator + 2);
+    if(hostSeparator === -1){
+      // The url is not as expected, return wathever it is
+      return completeUrl;
+    }
+    var currentUrl = completeUrl.substring(hostSeparator);
+    return currentUrl;
   }
 });

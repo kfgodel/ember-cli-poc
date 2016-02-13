@@ -22,11 +22,8 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, Auth
   },
   // PRIVATE
   onRequestUnauthorized(filterText){
-    this.transitionTo('login');
-    this.authenticator().restartAndAfterAuthentication(()=>{
-      this.transitionTo('procedures.filter',  {
-        queryParams: {filterText: filterText}
-      });
+    this.authenticator().reauthenticateAndThen(()=>{
+      this.transitionTo('procedures.filter',  { queryParams: {filterText: filterText} });
     });
   },
 });
