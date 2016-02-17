@@ -23,6 +23,15 @@ export default Ember.Service.extend({
       j_password: credentials.password })
       .then(Ember.run.bind(this, this.onUserLoggedIn));
   },
+  logout(){
+    Ember.$.post("/j_logout", {})
+      .then(Ember.run.bind(this, this.onUserLoggedOut),
+        function(response){
+          console.log("Error logging out");
+          console.log(response);
+        }
+      );
+  },
   reauthenticateAndThen(action){
     this.markAsNotAuthenticated();
     this.afterAuthentication(action);
@@ -96,6 +105,10 @@ export default Ember.Service.extend({
   },
   onUserLoggedIn(){
     this.onSessionAvailable();
+  },
+  onUserLoggedOut(){
+    this.markAsNotAuthenticated();
+    this.makeUserLogin();
   },
   currentUrl(){
     var completeUrl = window.location.href;
