@@ -1,17 +1,13 @@
 import Ember from 'ember';
 import UserRepositoryInjected from '../mixins/user-repository-injected';
-import ServerPromiseHandler from '../rest/server-promise-handler';
 import AuthenticatorInjected from '../mixins/authenticator-injected';
 
 export default Ember.Controller.extend(UserRepositoryInjected, AuthenticatorInjected, {
   actions: {
     create: function() {
-      this.repo().createUser()
-        .then(...new ServerPromiseHandler()
-          .whenSuccess(Ember.run.bind(this, this.onUserCreated))
-          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
-          .handlers()
-        );
+      this.promiseWaitingFor(this.repo().createUser())
+        .whenSucceeded(Ember.run.bind(this, this.onUserCreated))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     }
   },
   onUserRemoved: function(removedUser){
@@ -25,9 +21,7 @@ export default Ember.Controller.extend(UserRepositoryInjected, AuthenticatorInje
     this.userList().addObject(createdUser);
     this.transitionToRoute('users.edit', createdUser);
   },
-  onRequestUnauthorized(){
-    this.authenticator().reauthenticateAndThen(()=>{
-      this.transitionToRoute('users');
-    });
+  onReauthenticated(){
+    this.transitionToRoute('users');
   }
 });

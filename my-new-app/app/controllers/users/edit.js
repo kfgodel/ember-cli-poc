@@ -1,25 +1,18 @@
 import Ember from 'ember';
 import UserRepositoryInjected from '../../mixins/user-repository-injected';
-import ServerPromiseHandler from '../../rest/server-promise-handler';
 import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
 export default Ember.Controller.extend(UserRepositoryInjected, AuthenticatorInjected, {
   actions: {
     save: function() {
-      this.repo().updateUser(this.user())
-        .then(...new ServerPromiseHandler()
-          .whenSuccess(Ember.run.bind(this, this.onUserUpdated))
-          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
-          .handlers()
-        );
+      this.promiseWaitingFor(this.repo().updateUser(this.user()))
+        .whenSucceeded(Ember.run.bind(this, this.onUserUpdated))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     remove: function(){
-      this.repo().removeUser(this.user())
-        .then(...new ServerPromiseHandler()
-          .whenSuccess(Ember.run.bind(this, this.onUserRemoved))
-          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
-          .handlers()
-        );
+      this.promiseWaitingFor(this.repo().removeUser(this.user()))
+        .whenSucceeded(Ember.run.bind(this, this.onUserRemoved))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     }
   },
 
@@ -36,9 +29,7 @@ export default Ember.Controller.extend(UserRepositoryInjected, AuthenticatorInje
     this.get('usersController').onUserRemoved(this.user());
     this.transitionToRoute('users');
   },
-  onRequestUnauthorized(){
-    this.authenticator().reauthenticateAndThen(()=>{
-      this.transitionToRoute('users.edit', this.user());
-    });
+  onReauthenticated(){
+    this.transitionToRoute('users.edit', this.user());
   }
 });

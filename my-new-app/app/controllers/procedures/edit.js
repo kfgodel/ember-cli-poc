@@ -1,25 +1,18 @@
 import Ember from 'ember';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
-import ServerPromiseHandler from '../../rest/server-promise-handler';
 import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, AuthenticatorInjected, {
   actions: {
     saveProcedure: function() {
-      this.repo().updateProcedure(this.procedure())
-        .then(...new ServerPromiseHandler()
-          .whenSuccess(Ember.run.bind(this, this.onProcedureUpdated))
-          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
-          .handlers()
-        );
+      this.promiseWaitingFor(this.repo().updateProcedure(this.procedure()))
+        .whenSucceeded(Ember.run.bind(this, this.onProcedureUpdated))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     deleteProcedure: function(){
-      this.repo().removeProcedure(this.procedure())
-        .then(...new ServerPromiseHandler()
-          .whenSuccess(Ember.run.bind(this, this.onProcedureRemoved))
-          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
-          .handlers()
-        );
+      this.promiseWaitingFor(this.repo().removeProcedure(this.procedure()))
+        .whenSucceeded(Ember.run.bind(this, this.onProcedureRemoved))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     cancelEdition: function(){
       this.transitionToView();
@@ -39,10 +32,8 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, Authenticato
   transitionToView: function(){
     this.transitionToRoute('procedures.view', this.procedure() );
   },
-  onRequestUnauthorized(){
-    this.authenticator().reauthenticateAndThen(()=>{
-      this.transitionToRoute('procedures.edit', this.procedure());
-    });
+  onReauthenticated(){
+    this.transitionToRoute('procedures.edit', this.procedure());
   },
 
 });

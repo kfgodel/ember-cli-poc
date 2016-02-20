@@ -1,17 +1,13 @@
 import Ember from 'ember';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
-import ServerPromiseHandler from '../../rest/server-promise-handler';
 import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, AuthenticatorInjected, {
   actions: {
     createProcedure: function() {
-      this.repo().createProcedure()
-        .then(...new ServerPromiseHandler()
-          .whenSuccess(Ember.run.bind(this, this.onProcedureCreated))
-          .whenUnauthorized(Ember.run.bind(this, this.onRequestUnauthorized))
-          .handlers()
-        );
+      this.promiseWaitingFor(this.repo().createProcedure())
+        .whenSucceeded(Ember.run.bind(this, this.onProcedureCreated))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     }
   },
 
@@ -19,9 +15,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, Authenticato
   onProcedureCreated: function(createdTo){
     this.transitionToRoute('procedures.edit', createdTo);
   },
-  onRequestUnauthorized(){
-    this.authenticator().reauthenticateAndThen(()=>{
-      this.transitionToRoute('procedures.filter');
-    });
+  onReauthenticated(){
+    this.transitionToRoute('procedures.filter');
   }
 });

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ServerPromiseHandler from '../rest/server-promise-handler';
+import ServerInteraction from '../rest/server-interaction';
 
 export default Ember.Service.extend({
   authenticationState: Ember.Object.create({authenticated: false, message: '...'}),
@@ -51,14 +51,14 @@ export default Ember.Service.extend({
   },
   engageServerSession(){
     var sessionUrl = this.locator().resourceUrl('session');
-    Ember.$.ajax({
-      method: 'GET',
-      url: sessionUrl,
-    }).then(...new ServerPromiseHandler()
-        .whenSuccess(Ember.run.bind(this, this.onSessionAvailable))
-        .whenUnauthorized(Ember.run.bind(this, this.onSessionMissing))
-        .orElse(Ember.run.bind(this, this.onRequestError))
-      );
+    new ServerInteraction(
+      Ember.$.ajax({
+        method: 'GET',
+        url: sessionUrl,
+      })
+    ).whenSucceeded(Ember.run.bind(this, this.onSessionAvailable))
+     .whenUnauthorized(Ember.run.bind(this, this.onSessionMissing))
+     .whenFailed(Ember.run.bind(this, this.onRequestError));
   },
   onSessionAvailable(){
     this.markAsAuthenticated();
