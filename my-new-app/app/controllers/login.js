@@ -1,8 +1,8 @@
 import Ember from 'ember';
 import ServerPromiseHandler from '../rest/server-promise-handler';
-import Authenticatored from '../mixins/authenticatored';
+import AuthenticatorInjected from '../mixins/authenticator-injected';
 
-export default Ember.Controller.extend(Authenticatored, {
+export default Ember.Controller.extend(AuthenticatorInjected, {
   actions: {
     logIn: function() {
       this.requestLogin();

@@ -1,9 +1,9 @@
 import Ember from 'ember';
 import ProcedureRepositored from '../../mixins/procedure-repositored';
 import ServerPromiseHandler from '../../rest/server-promise-handler';
-import Authenticatored from '../../mixins/authenticatored';
+import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
-export default Ember.Controller.extend(ProcedureRepositored, Authenticatored, {
+export default Ember.Controller.extend(ProcedureRepositored, AuthenticatorInjected, {
   actions: {
     createProcedure: function() {
       this.repo().createProcedure()

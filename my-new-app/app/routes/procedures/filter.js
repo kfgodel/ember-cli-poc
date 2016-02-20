@@ -2,10 +2,10 @@ import Ember from 'ember';
 import AuthenticatedRoute from '../../mixins/authenticated-route';
 import ProcedureRepositored from '../../mixins/procedure-repositored';
 import ServerPromiseHandler from '../../rest/server-promise-handler';
-import Authenticatored from '../../mixins/authenticatored';
+import AuthenticatorInjected from '../../mixins/authenticator-injected';
 import Searchered from '../../mixins/searchered';
 
-export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, Authenticatored, Searchered, {
+export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, AuthenticatorInjected, Searchered, {
   queryParams:{
     filterText:{
       refreshModel: true,  // Refresh the model whenever the query param changes
