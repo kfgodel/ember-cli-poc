@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
-import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
-export default Ember.Controller.extend(ProcedureRepositoryInjected, AuthenticatorInjected, {
+export default Ember.Controller.extend(ProcedureRepositoryInjected, {
   actions: {
     saveProcedure: function() {
       this.promiseWaitingFor(this.repo().updateProcedure(this.procedure()))

@@ -1,8 +1,7 @@
 import Ember from 'ember';
 import UserRepositoryInjected from '../mixins/user-repository-injected';
-import AuthenticatorInjected from '../mixins/authenticator-injected';
 
-export default Ember.Controller.extend(UserRepositoryInjected, AuthenticatorInjected, {
+export default Ember.Controller.extend(UserRepositoryInjected, {
   actions: {
     create: function() {
       this.promiseWaitingFor(this.repo().createUser())
