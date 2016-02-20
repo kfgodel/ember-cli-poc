@@ -7,6 +7,7 @@
     <tr>
       <th>Id</th>
       <th>Name</th>
+      <th>Tags</th>
     </tr>
     </thead>
 
@@ -15,10 +16,11 @@
       <tr>
         <td>{{#link-to 'procedures.view' procedure}}{{procedure.id}}{{/link-to}}</td>
         <td>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</td>
+        <td>{{procedure.tags}}</td>
       </tr>
     {{else}}
       <tr>
-        <td colspan="4">No procedures found</td>
+        <td colspan="3">No procedures found</td>
       </tr>
     {{/each}}
     </tbody>
@@ -26,7 +28,7 @@
     <tfoot>
       <tr>
         <td>Total</td>
-        <td>{{model.length}}</td>
+        <td colspan="2">{{model.length}}</td>
       </tr>
     </tfoot>
   </table>
