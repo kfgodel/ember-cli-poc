@@ -1,10 +1,10 @@
 import Ember from 'ember';
 import AuthenticatedRoute from '../../mixins/authenticated-route';
-import ProcedureRepositored from '../../mixins/procedure-repositored';
+import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
 import ServerPromiseHandler from '../../rest/server-promise-handler';
 import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
-export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositored, AuthenticatorInjected, {
+export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, AuthenticatorInjected, {
   model: function(params){
     var procedureId = params.procedure_id;
     return this.repo().getProcedure(procedureId)

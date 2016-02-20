@@ -1,9 +1,9 @@
 import Ember from 'ember';
-import UserRepositored from '../../mixins/user-repositored';
+import UserRepositoryInjected from '../../mixins/user-repository-injected';
 import ServerPromiseHandler from '../../rest/server-promise-handler';
 import AuthenticatorInjected from '../../mixins/authenticator-injected';
 
-export default Ember.Controller.extend(UserRepositored, AuthenticatorInjected, {
+export default Ember.Controller.extend(UserRepositoryInjected, AuthenticatorInjected, {
   actions: {
     save: function() {
       this.repo().updateUser(this.user())
