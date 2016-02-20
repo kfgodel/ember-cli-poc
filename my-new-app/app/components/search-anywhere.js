@@ -1,12 +1,11 @@
 import Ember from 'ember';
+import Searchered from '../mixins/searchered';
 
-export default Ember.Component.extend({
-  searchText: '',
+export default Ember.Component.extend(Searchered, {
   actions:{
     search(){
-      var appController = this.get('container').lookup('controller:application');
-      var filterText = this.get('searchText');
-      appController.transitionToRoute('procedures.filter', {queryParams: {filterText: filterText}});
+      this.searcher().search();
     }
   },
+  // PRIVATE
 });
