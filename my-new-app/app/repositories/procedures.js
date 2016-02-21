@@ -3,9 +3,6 @@ import EmberResource from '../rest/ember-resource';
 import Procedure from '../resources/procedure';
 
 export default Ember.Object.extend({
-  procedureResource: function(){
-    return EmberResource.create({resourceName: 'procedures', resourceClass: Procedure, resourceLocator: this.get('resourceLocator')});
-  },
   getAllProcedures: function(){
     return this.procedureResource().getAll();
   },
@@ -23,5 +20,9 @@ export default Ember.Object.extend({
   },
   removeProcedure: function(procedure){
     return this.procedureResource().remove(procedure);
-  }
+  },
+  // PRIVATE
+  procedureResource: function(){
+    return EmberResource.create({resourceName: 'procedures', resourceClass: Procedure, resourceLocator: this.get('resourceLocator')});
+  },
 });

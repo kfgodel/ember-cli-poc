@@ -39,9 +39,9 @@ export default function ServerInteraction(requestPromise){
     }
   };
 
-  var interactionPromise = requestPromise.then(successfulRequestHandler, failedRequestHandler)
+  var interactionPromise = requestPromise.then(successfulRequestHandler, failedRequestHandler);
   // Make this instance appear as a promise
   this.then = function(succes, error){
     return interactionPromise.then(succes, error);
-  }
-};
+  };
+}

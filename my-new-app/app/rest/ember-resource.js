@@ -6,7 +6,7 @@ import RestResource from './resource';
  * handles ember objects as resource entities (converts ingoing and outgoing objects if needed).
  * This allows the client code to use ember instead of plain javascript objects
  *
- *   EmberResource.create({resourceName: 'users', resourceLocator: aResourceLocator})
+ *   EmberResource.create({resourceName: 'users', resourceClass: anEmberClass, resourceLocator: aResourceLocator})
  */
 export default Ember.Object.extend({
   getAll: function(queryParams){
@@ -46,7 +46,7 @@ export default Ember.Object.extend({
     }else if(jsonResult instanceof Object){
       return this.emberClass().create(jsonResult);
     }
-    // In any other case use as given
+    // In any other case use it as given
     return jsonResult;
   },
   emberizing: function(promise){

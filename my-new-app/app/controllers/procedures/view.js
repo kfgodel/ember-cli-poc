@@ -3,16 +3,16 @@ import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injec
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, {
   actions: {
-    editProcedure : function (procedure) {
+    editProcedure(procedure) {
       this.transitionToRoute('procedures.edit', procedure);
     },
-    deleteProcedure: function (procedure) {
+    deleteProcedure(procedure) {
       this.promiseWaitingFor(this.repo().removeProcedure(procedure))
         .whenSucceeded(Ember.run.bind(this, this.onProcedureRemoved))
-        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated))
+        .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     tagClicked(clickedTag){
-      this.transitionToRoute('procedures.filter', { queryParams: {filterText: clickedTag} });
+      this.showProceduresMatching(clickedTag);
     }
   },
   // PRIVATE
@@ -24,5 +24,9 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
   },
   onReauthenticated(){
     this.transitionToRoute('procedures.view', this.procedure());
+  },
+  showProceduresMatching(tagToFilter) {
+    this.transitionToRoute('procedures.filter', { queryParams: {filterText: tagToFilter} });
   }
+
 });

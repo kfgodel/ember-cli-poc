@@ -29,7 +29,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
     this.transitionToRoute('procedures.filter');
   },
   transitionToView: function(){
-    this.transitionToRoute('procedures.view', this.procedure() );
+    this.transitionToRoute('procedures.view', this.procedure());
   },
   onReauthenticated(){
     this.transitionToRoute('procedures.edit', this.procedure());

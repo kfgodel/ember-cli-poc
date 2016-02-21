@@ -9,15 +9,18 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     tagClicked(clickedTag){
-      this.transitionToRoute('procedures.filter', { queryParams: {filterText: clickedTag} });
+      this.showProceduresMatching(clickedTag);
     }
   },
 
   //PRIVATE
-  onProcedureCreated: function(createdTo){
+  onProcedureCreated(createdTo){
     this.transitionToRoute('procedures.edit', createdTo);
   },
   onReauthenticated(){
     this.transitionToRoute('procedures.filter');
+  },
+  showProceduresMatching(clickedTag) {
+    this.transitionToRoute('procedures.filter', { queryParams: {filterText: clickedTag} });
   }
 });

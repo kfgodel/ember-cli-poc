@@ -25,11 +25,9 @@ export default Ember.Service.extend({
   },
   logout(){
     Ember.$.post("/j_logout", {})
-      .then(Ember.run.bind(this, this.onUserLoggedOut),
-        function(response){
-          console.log("Error logging out");
-          console.log(response);
-        }
+      .then(
+        Ember.run.bind(this, this.onUserLoggedOut),
+        Ember.run.bind(this, this.onFailedLogout)
       );
   },
   reauthenticateAndThen(action){
@@ -110,19 +108,8 @@ export default Ember.Service.extend({
     this.markAsNotAuthenticated();
     this.makeUserLogin();
   },
-  currentUrl(){
-    var completeUrl = window.location.href;
-    var protocolSeparator = completeUrl.indexOf('//');
-    if(protocolSeparator === -1){
-      // The url is not as expected, return wathever it is
-      return completeUrl;
-    }
-    var hostSeparator = completeUrl.indexOf("/", protocolSeparator + 2);
-    if(hostSeparator === -1){
-      // The url is not as expected, return wathever it is
-      return completeUrl;
-    }
-    var currentUrl = completeUrl.substring(hostSeparator);
-    return currentUrl;
-  }
+  onFailedLogout(response){
+    console.log("Error logging out");
+    console.log(response);
+  },
 });

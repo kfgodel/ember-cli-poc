@@ -11,8 +11,8 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
   },
   model: function(params){
     var filterText = params.filterText;
-    // Because the queyParam is not available to the searcher we let it know its value (needed for URL access)
-    this.searcher().set('searchExpression', filterText);
+    // Because the queyParam is not available to the searcher we let it know its value (needed when this route is accessed by url)
+    this.communicateQueryParamToSearcher(filterText);
 
     return this.promiseWaitingFor(this.repo().getAllProceduresMathing(filterText))
       .whenInterruptedAndReauthenticated(()=>{
@@ -20,4 +20,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
       });
   },
   // PRIVATE
+  communicateQueryParamToSearcher(filterParam){
+    this.searcher().set('searchExpression', filterParam);
+  }
 });
