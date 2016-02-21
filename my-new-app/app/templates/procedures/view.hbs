@@ -1,9 +1,13 @@
 <div  class="container">
-  <h1 class="page-header" {{action "editProcedure" model on="doubleClick"}} >{{model.name}}</h1>
+  <h1 class="page-header" {{action "editProcedure" model on="doubleClick"}} >
+    {{model.name}}
+    <div class="container-fluid">
+      {{#each model.tagList as |tag|}}
+        <button class="btn btn-primary btn-sm" {{action 'tagClicked' tag}}>{{tag}}</button>
+      {{/each}}
+    </div>
+  </h1>
 
-  <div class="container-fluid">
-    {{model.tags}}
-  </div>
 
   <div class="container-fluid" {{action "editProcedure" model on="doubleClick"}}>
     {{markdown-view value=model.description }}

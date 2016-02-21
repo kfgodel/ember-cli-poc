@@ -7,6 +7,9 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
       this.promiseWaitingFor(this.repo().createProcedure())
         .whenSucceeded(Ember.run.bind(this, this.onProcedureCreated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
+    },
+    tagClicked(clickedTag){
+      this.transitionToRoute('procedures.filter', { queryParams: {filterText: clickedTag} });
     }
   },
 

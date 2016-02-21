@@ -42,9 +42,9 @@ export default Ember.Object.extend({
   },
   emberize: function(jsonResult){
     if(jsonResult instanceof Array){
-      return Ember.A(jsonResult).map(this.emberize);
+      return Ember.A(jsonResult).map(Ember.run.bind(this, this.emberize));
     }else if(jsonResult instanceof Object){
-      return Ember.Object.create(jsonResult);
+      return this.emberClass().create(jsonResult);
     }
     // In any other case use as given
     return jsonResult;
@@ -53,5 +53,8 @@ export default Ember.Object.extend({
     return promise
       .then(Ember.run.bind(this, this.emberize));
   },
+  emberClass(){
+    return this.get('resourceClass') || Ember.Object;
+  }
 
 });

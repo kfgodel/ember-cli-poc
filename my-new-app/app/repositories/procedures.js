@@ -1,9 +1,10 @@
 import Ember from 'ember';
 import EmberResource from '../rest/ember-resource';
+import Procedure from '../resources/procedure';
 
 export default Ember.Object.extend({
   procedureResource: function(){
-    return EmberResource.create({resourceName: 'procedures', resourceLocator: this.get('resourceLocator')});
+    return EmberResource.create({resourceName: 'procedures', resourceClass: Procedure, resourceLocator: this.get('resourceLocator')});
   },
   getAllProcedures: function(){
     return this.procedureResource().getAll();
