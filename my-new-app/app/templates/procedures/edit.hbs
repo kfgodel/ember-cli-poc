@@ -1,12 +1,12 @@
 <h1 class="page-header">
-  {{input class="form-control" placeholder="procedure name" value=model.name}}
-  {{input class="form-control" placeholder="Comma separated tags" value=model.tags}}
+  {{input class="form-control" placeholder="Nombre del procedimiento" value=model.name}}
+  {{input class="form-control" placeholder="Tags separados por comma.." value=model.tags}}
 </h1>
 
 
 <div class="row">
   <div class="col-md-6">
-    {{textarea class="description_edit form-control" placeholder="description" value=model.description}}
+    {{textarea class="description_edit form-control" placeholder="Descripción de los pasos y roles involucrados (markdown)" value=model.description}}
   </div>
   <div class="col-md-6">
     {{markdown-view value=model.description}}
