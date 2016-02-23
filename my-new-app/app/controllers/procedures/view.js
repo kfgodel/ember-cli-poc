@@ -13,6 +13,9 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
     },
     tagClicked(clickedTag){
       this.showProceduresMatching(clickedTag);
+    },
+    goBack(){
+      this.navigator().navigateToProceduresList();
     }
   },
   // PRIVATE
@@ -20,13 +23,13 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
     return this.get('model');
   },
   onProcedureRemoved: function(){
-    this.transitionToRoute('procedures.filter');
+    this.navigator().navigateToProceduresList();
   },
   onReauthenticated(){
-    this.transitionToRoute('procedures.view', this.procedure());
+    this.navigator().navigateToProcedureView(this.procedure());
   },
   showProceduresMatching(tagToFilter) {
-    this.transitionToRoute('procedures.filter', { queryParams: {filterText: tagToFilter} });
+    this.navigator().navigateToProceduresListFilteringBy(tagToFilter);
   }
 
 });

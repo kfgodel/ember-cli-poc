@@ -14,7 +14,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     cancelEdition: function(){
-      this.transitionToView();
+      this.goBackToViewOnly();
     }
   },
   // PRIVATE
@@ -23,16 +23,16 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
   },
   onProcedureUpdated: function(updatedTo){
     this.procedure().setProperties(updatedTo);
-    this.transitionToView();
+    this.goBackToViewOnly();
   },
   onProcedureRemoved: function(){
-    this.transitionToRoute('procedures.filter');
+    this.navigator().navigateToProceduresList();
   },
-  transitionToView: function(){
-    this.transitionToRoute('procedures.view', this.procedure());
+  goBackToViewOnly: function(){
+    this.navigator().navigateToProcedureView(this.procedure());
   },
   onReauthenticated(){
-    this.transitionToRoute('procedures.edit', this.procedure());
+    this.navigator().navigateToProcedureEdit(this.procedure());
   },
 
 });

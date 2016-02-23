@@ -16,7 +16,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
 
     return this.promiseWaitingFor(this.repo().getAllProceduresMathing(filterText))
       .whenInterruptedAndReauthenticated(()=>{
-        this.transitionTo('procedures.filter',  { queryParams: {filterText: filterText} });
+        this.navigator().navigateToProceduresListFilteringBy(filterText);
       });
   },
   // PRIVATE

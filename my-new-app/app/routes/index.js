@@ -1,7 +1,8 @@
 import Ember from 'ember';
+import NavigatorInjected from '../mixins/navigator-injected';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(NavigatorInjected, {
   beforeModel: function() {
-    this.transitionTo('procedures.filter');
+    this.navigator().navigateToProceduresList();
   }
 });

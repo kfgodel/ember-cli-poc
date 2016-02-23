@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import ServerInteraction from '../rest/server-interaction';
+import NavigatorInjected from '../mixins/navigator-injected';
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(NavigatorInjected, {
   authenticationState: Ember.Object.create({authenticated: false, message: '...'}),
   actionAfterAuthentication: null,
   ifNotAuthenticated(action){
@@ -89,16 +90,12 @@ export default Ember.Service.extend({
     // Display the error. Probably nothing else to do on our side. Server down?
     this.changeStateMessageTo(`${response.status} - ${response.statusText}`);
   },
-  routing: Ember.inject.service('-routing'),
   makeUserLogin(){
-    this.router().transitionTo('login');
-  },
-  router(){
-    return this.get('routing');
+    this.navigator().navigateToLogin();
   },
   defaultPostAuthenticationAction(){
     return ()=>{
-      this.router().transitionTo('index');
+      this.navigator().navigateToIndex();
     };
   },
   onUserLoggedIn(){

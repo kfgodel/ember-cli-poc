@@ -18,9 +18,9 @@ export default Ember.Controller.extend(UserRepositoryInjected, {
   },
   onUserCreated: function(createdUser){
     this.userList().addObject(createdUser);
-    this.transitionToRoute('users.edit', createdUser);
+    this.navigator().navigateToUsersEdit(createdUser);
   },
   onReauthenticated(){
-    this.transitionToRoute('users');
+    this.navigator().navigateToUsers();
   }
 });

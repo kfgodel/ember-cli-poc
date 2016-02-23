@@ -1,10 +1,10 @@
 import Ember from 'ember';
+import NavigatorInjected from '../mixins/navigator-injected';
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(NavigatorInjected, {
   searchExpression: '',
   search(){
     var filterText = this.get('searchExpression');
-    var appController = this.get('container').lookup('controller:application');
-    appController.transitionToRoute('procedures.filter', {queryParams: {filterText: filterText}});
+    this.navigator().navigateToProceduresListFilteringBy(filterText);
   }
 });

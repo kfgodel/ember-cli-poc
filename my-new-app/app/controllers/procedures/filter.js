@@ -15,12 +15,12 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
 
   //PRIVATE
   onProcedureCreated(createdTo){
-    this.transitionToRoute('procedures.edit', createdTo);
+    this.navigator().navigateToProcedureEdit(createdTo);
   },
   onReauthenticated(){
-    this.transitionToRoute('procedures.filter');
+    this.navigator().navigateToProceduresList();
   },
   showProceduresMatching(clickedTag) {
-    this.transitionToRoute('procedures.filter', { queryParams: {filterText: clickedTag} });
+    this.navigator().navigateToProceduresListFilteringBy(clickedTag);
   }
 });

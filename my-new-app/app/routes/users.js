@@ -7,7 +7,7 @@ export default Ember.Route.extend(AuthenticatedRoute, UserRepositoryInjected, {
   model: function(){
     return this.promiseWaitingFor(this.repo().getAllUsers())
       .whenInterruptedAndReauthenticated(()=>{
-        this.transitionTo('users');
+        this.navigator().navigateToUsers();
       });
   },
   // PRIVATE

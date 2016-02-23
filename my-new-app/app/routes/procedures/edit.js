@@ -8,7 +8,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
 
     return this.promiseWaitingFor(this.repo().getProcedure(procedureId))
       .whenInterruptedAndReauthenticated(()=>{
-        this.transitionTo('procedures.edit',procedureId);
+        this.navigator().navigateToProcedureEdit(procedureId);
       });
   },
   // PRIVATE

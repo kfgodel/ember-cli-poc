@@ -26,9 +26,9 @@ export default Ember.Controller.extend(UserRepositoryInjected, {
   },
   onUserRemoved: function(){
     this.get('usersController').onUserRemoved(this.user());
-    this.transitionToRoute('users');
+    this.navigator().navigateToUsers();
   },
   onReauthenticated(){
-    this.transitionToRoute('users.edit', this.user());
+    this.navigator().navigateToUsersEdit(this.user());
   }
 });
