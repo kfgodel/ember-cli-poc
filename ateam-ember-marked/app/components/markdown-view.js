@@ -1,0 +1,1 @@
+export { default } from 'ateam-ember-marked/components/markdown-view';
