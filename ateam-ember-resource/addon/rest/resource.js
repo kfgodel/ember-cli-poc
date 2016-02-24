@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import Requester from './requester';
+import Requester from 'ateam-ember-resource/rest/requester';
 
 /**
  * This type represents a rest resource that can be used to manipulate remote instances under that rest url.

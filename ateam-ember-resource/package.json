@@ -1,7 +1,7 @@
 {
   "name": "ateam-ember-resource",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "version": "0.0.3",
+  "description": "Ember resource objects to interact with a rest endpoint",
   "directories": {
     "doc": "doc",
     "test": "tests"

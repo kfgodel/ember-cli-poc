@@ -1,0 +1,1 @@
+export { default } from 'ateam-ember-resource/rest/server-interaction';

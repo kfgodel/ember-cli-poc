@@ -1,6 +1,6 @@
 # Ateam-ember-resource
 
-This README outlines the details of collaborating on this Ember addon.
+This project adds resource objects to communicate with remote rest endpoints
 
 ## Installation
 
@@ -23,3 +23,21 @@ This README outlines the details of collaborating on this Ember addon.
 * `ember build`
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+
+### Created from
+
+> ember addon ateam-ember-resource  
+> cd ateam-ember-resource
+> bower install marked --save-dev --save-exact
+> ember g blueprint ateam-ember-resource
+> ember g component markdown-view
+> ember g helper markdown-ashtml
+
+Modify components and helper content
+Modify blueprint to add dependencies
+Modify index.js to import dependencies on main html
+
+Adjust package.json
+
+> npm publish  
+To make the addon globally available (npm adduser maybe needed before)  

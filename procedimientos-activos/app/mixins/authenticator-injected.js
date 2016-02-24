@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ServerInteraction from '../rest/server-interaction';
+import ServerInteraction from 'ateam-ember-resource/rest/server-interaction';
 
 /**
  * This Mixin adds a the authenticator as an injected dependency

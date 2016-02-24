@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import RestResource from './resource';
+import RestResource from 'ateam-ember-resource/rest/resource';
 
 /**
  * This type represents a backend rest resource. In contrast to a simple RestResource, this type

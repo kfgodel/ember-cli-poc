@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import ServerInteraction from '../rest/server-interaction';
+import ServerInteraction from 'ateam-ember-resource/rest/server-interaction';
 import NavigatorInjected from '../mixins/navigator-injected';
 
 export default Ember.Service.extend(NavigatorInjected, {
