@@ -42,7 +42,7 @@ If not, follow [node install guides under installation](http://guides.emberjs.co
 
 ## Setup
 
-> cd my-new-app  
+> cd procedimientos-activos  
 > npm install  
 > bower install  
 > ember server --proxy http://127.0.0.1:9090  
@@ -63,8 +63,8 @@ in terms of names a and structures
 
 ## Commands to create this project 
 
-> ember new my-new-app --skip-gitapp
-> cd new my-new-app
+> ember new procedimientos-activos --skip-gitapp
+> cd new procedimientos-activos
 > bower install bootstrap --save  
 
 Add to `ember-cli-build.js`
@@ -74,7 +74,7 @@ app.import('bower_components/bootstrap/dist/css/bootstrap.css');
 
 ### Update ember-cli 2.3.0
 
-> cd my-new-app
+> cd procedimientos-activos
 > sudo npm uninstall -g ember-cli
 > sudo npm cache clean
 > sudo npm install -g ember-cli@2.2.0-beta.6

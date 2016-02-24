@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'procedimientos-activos',
+    modulePrefix: 'dummy',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
