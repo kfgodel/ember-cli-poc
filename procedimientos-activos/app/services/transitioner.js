@@ -4,6 +4,8 @@ import Ember from 'ember';
  * This type represents a globally available service to manage transitions to routes from any place in the code.
  *  By using this type the internal routing method is abstracted and controllers and routes can use the same interface,
  *  as well as components or any other code
+ *
+ *  This class may lose its purpose if Ember releases a public routing service
  */
 export default Ember.Service.extend({
   /**

@@ -28,14 +28,6 @@ For more information on using ember-cli, visit [http://www.ember-cli.com/](http:
 
 > ember addon ateam-ember-resource  
 > cd ateam-ember-resource
-> bower install marked --save-dev --save-exact
-> ember g blueprint ateam-ember-resource
-> ember g component markdown-view
-> ember g helper markdown-ashtml
-
-Modify components and helper content
-Modify blueprint to add dependencies
-Modify index.js to import dependencies on main html
 
 Adjust package.json
 
