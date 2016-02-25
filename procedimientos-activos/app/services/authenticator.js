@@ -1,12 +1,13 @@
 import Ember from 'ember';
 import ServerInteraction from 'ateam-ember-resource/rest/server-interaction';
 import NavigatorInjected from '../mixins/navigator-injected';
+import AuthenticationState from '../auth/authentication-state';
 
 export default Ember.Service.extend(NavigatorInjected, {
-  authenticationState: Ember.Object.create({authenticated: false, message: '...'}),
+  authenticationState: AuthenticationState.create(),
   actionAfterAuthentication: null,
   ifNotAuthenticated(action){
-    if(!this.isAuthenticated()){
+    if(this.state().isUnauthenticated()){
       action();
     }
   },
@@ -32,15 +33,12 @@ export default Ember.Service.extend(NavigatorInjected, {
       );
   },
   reauthenticateAndThen(action){
-    this.markAsNotAuthenticated();
+    this.state().markAsNotAuthenticated();
     this.afterAuthentication(action);
     this.makeUserLogin();
   },
 
   // PRIVATE
-  isAuthenticated(){
-    return this.state().get('authenticated');
-  },
   state(){
     return this.get('authenticationState');
   },
@@ -60,17 +58,9 @@ export default Ember.Service.extend(NavigatorInjected, {
      .whenFailed(Ember.run.bind(this, this.onRequestError));
   },
   onSessionAvailable(){
-    this.markAsAuthenticated();
+    this.state().markAsAuthenticated();
     var pendingAction = this.postAuthenticationAction();
     pendingAction();
-  },
-  markAsAuthenticated(){
-    this.state().set('authenticated', true);
-    this.changeStateMessageTo('OK!');
-  },
-  markAsNotAuthenticated(){
-    this.state().set('authenticated', false);
-    this.changeStateMessageTo('...');
   },
   postAuthenticationAction(){
     var pendingAction = this.get('actionAfterAuthentication');
@@ -80,15 +70,12 @@ export default Ember.Service.extend(NavigatorInjected, {
     }
     return pendingAction;
   },
-  changeStateMessageTo(newMessage){
-    this.state().set('message', newMessage);
-  },
   onSessionMissing(){
     this.makeUserLogin();
   },
   onRequestError(response){
     // Display the error. Probably nothing else to do on our side. Server down?
-    this.changeStateMessageTo(`${response.status} - ${response.statusText}`);
+    this.state().changeStateMessageTo(`${response.status} - ${response.statusText}`);
   },
   makeUserLogin(){
     this.navigator().navigateToLogin();
@@ -102,7 +89,7 @@ export default Ember.Service.extend(NavigatorInjected, {
     this.onSessionAvailable();
   },
   onUserLoggedOut(){
-    this.markAsNotAuthenticated();
+    this.state().markAsNotAuthenticated();
     this.makeUserLogin();
   },
   onFailedLogout(response){
