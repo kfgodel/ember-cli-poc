@@ -21,7 +21,7 @@
   "devDependencies": {
     "ateam-ember-marked": "0.0.1",
     "ateam-ember-resource": "0.0.3",
-    "ateam-ember-supplement": "0.0.1",
+    "ateam-ember-supplement": "0.0.4",
     "broccoli-asset-rev": "^2.2.0",
     "ember-ajax": "0.7.1",
     "ember-cli": "2.2.0-beta.6",
