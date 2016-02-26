@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import UserRepositoryInjected from '../mixins/user-repository-injected';
+import MessagerInjected from '../mixins/messager-injected';
 
-export default Ember.Controller.extend(UserRepositoryInjected, {
+export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected, {
   actions: {
     create: function() {
       this.promiseWaitingFor(this.repo().createUser())
@@ -22,5 +23,13 @@ export default Ember.Controller.extend(UserRepositoryInjected, {
   },
   onReauthenticated(){
     this.navigator().navigateToUsers();
+  },
+  init(){
+    this._super();
+    this.messager().subscribe('userRemoved', this, 'onUserRemoved');
+  },
+  willDestroy(){
+    this.messager().unsubscribe('userRemoved');
+    return this._super();
   }
 });
