@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import UserRepositoryInjected from '../../mixins/user-repository-injected';
-import MessagerInjected from '../../mixins/messager-injected';
+import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
 
 export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected, {
   actions: {
