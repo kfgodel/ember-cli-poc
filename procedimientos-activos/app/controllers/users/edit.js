@@ -26,7 +26,7 @@ export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected,
     this.transitionToRoute('users');
   },
   onUserRemoved: function(){
-    this.messager().publish('userRemoved', this.user());
+    this.messager().publish({ type: 'userRemoved', removedUser: this.user()});
     //this.get('usersController').onUserRemoved(this.user());
     this.navigator().navigateToUsers();
   },

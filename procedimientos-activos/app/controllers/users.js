@@ -26,10 +26,12 @@ export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected,
   },
   init(){
     this._super();
-    this.messager().subscribe('userRemoved', this, 'onUserRemoved');
+    this.messager().subscribe({type: 'userRemoved'}, (message)=>{
+      this.onUserRemoved(message.removedUser);
+    });
   },
   willDestroy(){
-    this.messager().unsubscribe('userRemoved');
+    this.messager().unsubscribe({type: 'userRemoved'});
     return this._super();
   }
 });
