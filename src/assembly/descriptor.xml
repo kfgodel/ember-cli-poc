@@ -14,7 +14,7 @@
 
   <fileSets>
     <fileSet>
-      <directory>my-new-app/dist</directory>
+      <directory>procedimientos-activos/dist</directory>
       <outputDirectory></outputDirectory>
       <includes>
         <include>**/*</include>

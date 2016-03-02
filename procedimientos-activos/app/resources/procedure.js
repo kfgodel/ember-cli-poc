@@ -1,12 +1,10 @@
 import Ember from 'ember';
+import TagSplitter from 'ateam-ember-supplement/utils/tag-splitter';
 
 export default Ember.Object.extend({
   tagList: Ember.computed('tags', function() {
     var tags = this.get('tags');
-    if(!tags){
-      return [];
-    }
-    var tagArray = tags.split(/, /);
+    var tagArray = new TagSplitter().split(tags);
     return tagArray;
   })
 });

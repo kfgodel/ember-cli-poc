@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import UserRepositoryInjected from '../../mixins/user-repository-injected';
+import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
 
-export default Ember.Controller.extend(UserRepositoryInjected, {
+export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected, {
   actions: {
     save: function() {
       this.promiseWaitingFor(this.repo().updateUser(this.user()))
@@ -25,7 +26,8 @@ export default Ember.Controller.extend(UserRepositoryInjected, {
     this.transitionToRoute('users');
   },
   onUserRemoved: function(){
-    this.get('usersController').onUserRemoved(this.user());
+    this.messager().publish({ type: 'userRemoved', removedUser: this.user()});
+    //this.get('usersController').onUserRemoved(this.user());
     this.navigator().navigateToUsers();
   },
   onReauthenticated(){

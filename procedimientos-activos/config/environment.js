@@ -2,7 +2,7 @@
 
 module.exports = function(environment) {
   var ENV = {
-    modulePrefix: 'my-new-app',
+    modulePrefix: 'procedimientos-activos',
     environment: environment,
     baseURL: '/',
     locationType: 'auto',

@@ -1,5 +1,5 @@
 import Ember from 'ember';
-import EmberResource from '../rest/ember-resource';
+import EmberResource from 'ateam-ember-resource/rest/ember-resource';
 import Procedure from '../resources/procedure';
 
 export default Ember.Object.extend({
