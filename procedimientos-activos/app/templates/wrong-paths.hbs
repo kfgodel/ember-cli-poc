@@ -1,4 +1,25 @@
-<!-- User list grid -->
-<span>
-  Wrong URL! There's no route: {{model.wrong-paths}}
-</span>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
+    <!-- Logo space -->
+    <div class="navbar-header">
+      <span class="navbar-brand">{{application.displayName}}</span>
+    </div>
+
+  </div>
+</nav>
+
+<div class="container below-navigation-bar">
+
+  <h1>Direccion incorrecta!</h1>
+  <p>
+    <span>
+      No existe contenido en la url: /{{model.badUrl}}<br>
+    </span>
+  </p>
+  <p>
+    {{#link-to 'index'}}Volver al inicio{{/link-to}}
+  </p>
+
+</div>
+

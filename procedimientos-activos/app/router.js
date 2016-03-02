@@ -21,7 +21,7 @@ Router.map(function() {
   });
 
   // Catches all the malformed urls (not matching previous routes)
-  this.route('wrong-paths', { path: '/*wrong-paths' });
+  this.route('wrong-paths', { path: '/*badUrl' });
 });
 
 export default Router;
