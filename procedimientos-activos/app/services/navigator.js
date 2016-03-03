@@ -6,6 +6,9 @@ import Ember from 'ember';
  *   This class abstracts ember routes and adds semantic specific to this app
  */
 export default Ember.Service.extend({
+  navigateToEngageSession(){
+    this.navigateTo('engaging-session');
+  },
   navigateToLogin(){
     this.navigateTo('login');
   },
@@ -18,6 +21,10 @@ export default Ember.Service.extend({
   navigateToProceduresList(){
     this.navigateTo('procedures.filter');
   },
+  /**
+   * Moves the user to the procedures list indicating a new query param that refreshes the model
+   * @param filterText the text to filter procedures
+   */
   navigateToProceduresListFilteringBy(filterText){
     this.navigateTo('procedures.filter', undefined, {filterText: filterText});
   },
