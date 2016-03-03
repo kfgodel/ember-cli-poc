@@ -1,7 +1,8 @@
 import Ember from 'ember';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
+import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
 
-export default Ember.Controller.extend(ProcedureRepositoryInjected, {
+export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, {
   actions: {
     createProcedure: function() {
       this.promiseWaitingFor(this.repo().createProcedure())
@@ -22,5 +23,19 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
   },
   showProceduresMatching(clickedTag) {
     this.navigator().navigateToProceduresListFilteringBy(clickedTag);
+  },
+  init(){
+    this._super();
+    this.messager().subscribe({type: 'procedureSearchStarted'}, (message)=>{
+      this.set('currentlyLoading', true);
+    });
+    this.messager().subscribe({type: 'procedureSearchStopped'}, (message)=>{
+      this.set('currentlyLoading', false);
+    });
+  },
+  willDestroy(){
+    this.messager().unsubscribe({type: 'procedureSearchStarted'});
+    this.messager().unsubscribe({type: 'procedureSearchStopped'});
+    return this._super();
   }
 });

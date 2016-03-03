@@ -2,8 +2,9 @@ import Ember from 'ember';
 import AuthenticatedRoute from '../../mixins/authenticated-route';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
 import SearcherInjected from '../../mixins/searcher-injected';
+import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
 
-export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, SearcherInjected, {
+export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, SearcherInjected, MessagerInjected, {
   queryParams:{
     filterText:{
       refreshModel: true,  // Refresh the model whenever the query param changes
@@ -22,10 +23,9 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
   actions: {
     // Triggered while loading procedures
     loading(transition, originRoute) {
-      let controller = this.controllerFor('procedures.filter');
-      controller.set('currentlyLoading', true);
-      transition.promise.finally(function() {
-        controller.set('currentlyLoading', false);
+      this.messager().publish({type: 'procedureSearchStarted'});
+      transition.promise.finally(()=>{
+        this.messager().publish({type: 'procedureSearchStopped'});
       });
     }
   },
