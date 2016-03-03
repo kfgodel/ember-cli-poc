@@ -1,39 +1,46 @@
 <!-- Procedure list -->
 <button class="btn btn-success" {{action "createProcedure"}}>Crear nuevo</button>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>Nombre</th>
-      <th>Tags</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    {{#each model as |procedure| }}
+{{#if currentlyLoading}}
+  <div class="container">
+    Esperando resultados: <img src="/assets/images/loading-spinner.gif" />
+  </div>
+{{else}}
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
       <tr>
-        <td>{{#link-to 'procedures.view' procedure}}{{procedure.id}}{{/link-to}}</td>
-        <td>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</td>
-        <td>
-          {{#each procedure.tagList as |tag|}}
-            <button class="btn btn-primary btn-xs" {{action 'tagClicked' tag}}>{{tag}}</button>
-          {{/each}}
-        </td>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Tags</th>
       </tr>
-    {{else}}
-      <tr>
-        <td colspan="3">No procedures found</td>
-      </tr>
-    {{/each}}
-    </tbody>
+      </thead>
 
-    <tfoot>
+      <tbody>
+      {{#each model as |procedure| }}
+        <tr>
+          <td>{{#link-to 'procedures.view' procedure}}{{procedure.id}}{{/link-to}}</td>
+          <td>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</td>
+          <td>
+            {{#each procedure.tagList as |tag|}}
+              <button class="btn btn-primary btn-xs" {{action 'tagClicked' tag}}>{{tag}}</button>
+            {{/each}}
+          </td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan="3">No procedures found</td>
+        </tr>
+      {{/each}}
+      </tbody>
+
+      <tfoot>
       <tr>
         <td>Total</td>
         <td colspan="2">{{model.length}}</td>
       </tr>
-    </tfoot>
-  </table>
-</div>
+      </tfoot>
+    </table>
+  </div>
+{{/if}}
+

@@ -19,6 +19,16 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
         this.navigator().navigateToProceduresListFilteringBy(filterText);
       });
   },
+  actions: {
+    // Triggered while loading procedures
+    loading(transition, originRoute) {
+      let controller = this.controllerFor('procedures.filter');
+      controller.set('currentlyLoading', true);
+      transition.promise.finally(function() {
+        controller.set('currentlyLoading', false);
+      });
+    }
+  },
   // PRIVATE
   communicateQueryParamToSearcher(filterParam){
     this.searcher().set('searchExpression', filterParam);
