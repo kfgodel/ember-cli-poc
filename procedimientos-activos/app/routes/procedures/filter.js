@@ -22,7 +22,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
   },
   actions: {
     // Triggered while loading procedures
-    loading(transition, originRoute) {
+    loading(transition) {
       this.messager().publish({type: 'procedureSearchStarted'});
       transition.promise.finally(()=>{
         this.messager().publish({type: 'procedureSearchStopped'});

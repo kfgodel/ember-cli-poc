@@ -26,10 +26,10 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInje
   },
   init(){
     this._super();
-    this.messager().subscribe({type: 'procedureSearchStarted'}, (message)=>{
+    this.messager().subscribe({type: 'procedureSearchStarted'}, ()=>{
       this.set('currentlyLoading', true);
     });
-    this.messager().subscribe({type: 'procedureSearchStopped'}, (message)=>{
+    this.messager().subscribe({type: 'procedureSearchStopped'}, ()=>{
       this.set('currentlyLoading', false);
     });
   },
