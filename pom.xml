@@ -9,17 +9,17 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>ember-cli-poc</artifactId>
+  <artifactId>procedimientos-activos-frontend</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Ember Cli POC</name>
-  <description>Project to test Ember-cli manipulation of an ember application</description>
+  <name>Procedimientos activos Frontend</name>
+  <description>Ember frontend para el proyecto de procedimientos acticos</description>
 
   <scm>
-    <connection>scm:git:ssh://github.com/kfgodel/ember-cli-poc.git</connection>
-    <developerConnection>scm:git:ssh://github.com/kfgodel/ember-cli-poc.git</developerConnection>
-    <url>https://github.com/kfgodel/ember-cli-poc</url>
+    <connection>scm:git:ssh://github.com/kfgodel/procedimientos-activos-frontend.git</connection>
+    <developerConnection>scm:git:ssh://github.com/kfgodel/procedimientos-activos-frontend.git</developerConnection>
+    <url>https://github.com/kfgodel/procedimientos-activos-frontend</url>
   </scm>
 
   <repositories>
