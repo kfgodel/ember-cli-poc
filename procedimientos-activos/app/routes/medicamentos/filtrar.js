@@ -3,6 +3,8 @@ import AuthenticatedRoute from '../../mixins/authenticated-route';
 import MedicamentoRepositoryInjected from '../../mixins/medicamento-repository-injected';
 import SearcherInjected from '../../mixins/searcher-injected';
 import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
+import MedicamentoSearchStarted from '../../messages/medicamento-search-started';
+import MedicamentoSearchStopped from '../../messages/medicamento-search-stopped';
 
 export default Ember.Route.extend(AuthenticatedRoute, MedicamentoRepositoryInjected, SearcherInjected, MessagerInjected, {
   queryParams:{
@@ -23,9 +25,9 @@ export default Ember.Route.extend(AuthenticatedRoute, MedicamentoRepositoryInjec
   actions: {
     // Triggered while loading procedures
     loading(transition) {
-      this.messager().publish({type: 'medicamentoSearchStarted'});
+      this.messager().publish(new MedicamentoSearchStarted());
       transition.promise.finally(()=>{
-        this.messager().publish({type: 'medicamentoSearchStopped'});
+        this.messager().publish(new MedicamentoSearchStopped());
       });
     }
   },

@@ -8,7 +8,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInje
   actions: {
     createNew: function() {
       this.promiseWaitingFor(this.repo().createProcedure())
-        .whenSucceeded(Ember.run.bind(this, this.onProcedureCreated))
+        .whenSucceeded(Ember.run.bind(this, this.onModelCreated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     tagClicked(clickedTag){
@@ -17,7 +17,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInje
   },
 
   //PRIVATE
-  onProcedureCreated(createdTo){
+  onModelCreated(createdTo){
     this.navigator().navigateToProcedureEdit(createdTo);
   },
   onReauthenticated(){
