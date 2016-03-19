@@ -9,12 +9,12 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>procedimientos-activos-frontend</artifactId>
+  <artifactId>vetemecum-frontend</artifactId>
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Procedimientos activos Frontend</name>
-  <description>Ember frontend para el proyecto de procedimientos acticos</description>
+  <name>Vetemecum Frontend</name>
+  <description>Ember frontend para el proyecto de medicamentos veterinarios</description>
 
   <scm>
     <connection>scm:git:ssh://github.com/kfgodel/procedimientos-activos-frontend.git</connection>
