@@ -2,6 +2,7 @@ import Ember from 'ember';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember/load-initializers';
 import config from './config/environment';
+import Application from './concepts/application';
 
 let App;
 
@@ -16,5 +17,8 @@ App = Ember.Application.extend({
 });
 
 loadInitializers(App, config.modulePrefix);
+
+// Make browser tab use the dynamic app name
+document.title = new Application().get('displayName');
 
 export default App;
