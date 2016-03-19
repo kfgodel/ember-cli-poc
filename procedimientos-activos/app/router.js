@@ -20,6 +20,12 @@ Router.map(function() {
     this.route('filter');
   });
 
+  this.route('medicamentos', function () {
+    this.route('ver', {path: "ver/:medicamento_id"});
+    this.route('editar', {path: "editar/:medicamento_id"});
+    this.route('filtrar');
+  });
+
   // Catches all the malformed urls (not matching previous routes)
   this.route('wrong-paths', { path: '/*badUrl' });
 });

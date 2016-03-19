@@ -12,7 +12,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInje
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     tagClicked(clickedTag){
-      this.showProceduresMatching(clickedTag);
+      this.showMedicamentosMatching(clickedTag);
     }
   },
 

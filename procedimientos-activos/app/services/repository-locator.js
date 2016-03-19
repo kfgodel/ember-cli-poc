@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import UserRepository from '../repositories/users';
 import ProcedureRepository from '../repositories/procedures';
+import MedicamentoRepository from '../repositories/medicamentos';
 
 export default Ember.Service.extend({
   users(){
@@ -8,6 +9,9 @@ export default Ember.Service.extend({
   },
   procedures(){
     return ProcedureRepository.create({resourceLocator: this.locator()});
+  },
+  medicamentos(){
+    return MedicamentoRepository.create({resourceLocator: this.locator()});
   },
 
   // PRIVATE

@@ -5,6 +5,6 @@ export default Ember.Service.extend(NavigatorInjected, {
   searchExpression: '',
   search(){
     var filterText = this.get('searchExpression');
-    this.navigator().navigateToProceduresListFilteringBy(filterText);
+    this.navigator().navigateToMedicamentosListFilteringBy(filterText);
   }
 });

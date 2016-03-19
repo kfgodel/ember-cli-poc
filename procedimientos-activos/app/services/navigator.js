@@ -40,6 +40,18 @@ export default Ember.Service.extend({
   navigateToUsersEdit(user){
     this.navigateTo('users.edit', user);
   },
+  navigateToMedicamentosList(){
+    this.navigateTo('medicamentos.filtrar');
+  },
+  navigateToMedicamentosListFilteringBy(filterText){
+    this.navigateTo('medicamentos.filtrar', undefined, {filterText: filterText});
+  },
+  navigateToMedicamentoView(medicamento){
+    this.navigateTo('medicamentos.ver', medicamento);
+  },
+  navigateToMedicamentoEdit(medicamento){
+    this.navigateTo('medicamentos.editar', medicamento);
+  },
 
 
   // PRIVATE

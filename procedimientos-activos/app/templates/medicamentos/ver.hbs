@@ -1,0 +1,20 @@
+<div  class="container">
+  <h1 class="page-header" {{action "editModel" on="doubleClick"}} >
+    {{model.name}}
+    <div class="container-fluid">
+      {{#each model.tagList as |tag|}}
+        <button class="btn btn-primary btn-sm" {{action 'tagClicked' tag}}>{{tag}}</button>
+      {{/each}}
+    </div>
+  </h1>
+
+
+  <div class="container-fluid" {{action "editModel" on="doubleClick"}}>
+    {{markdown-view value=model.description }}
+  </div>
+
+  <h2 class="sub-header">Acciones</h2>
+  <button class="btn btn-default" {{action "editModel" }}>Editar</button>
+  <button class="btn btn-danger" {{action "deleteModel" }}>Borrar</button>
+  <button class="btn btn-link" {{action "goBack" }}>Volver</button>
+</div>
