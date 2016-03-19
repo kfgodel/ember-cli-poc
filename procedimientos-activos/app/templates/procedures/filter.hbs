@@ -1,5 +1,5 @@
 <!-- Procedure list -->
-<button class="btn btn-success" {{action "createProcedure"}}>Crear nuevo</button>
+<button class="btn btn-success" {{action "createNew"}}>Crear nuevo</button>
 
 {{#if currentlyLoading}}
   <div class="container">
@@ -29,7 +29,7 @@
         </tr>
       {{else}}
         <tr>
-          <td colspan="3">No procedures found</td>
+          <td colspan="3">No se encontraron procedimientos</td>
         </tr>
       {{/each}}
       </tbody>

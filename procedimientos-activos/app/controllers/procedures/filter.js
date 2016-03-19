@@ -4,7 +4,7 @@ import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, {
   actions: {
-    createProcedure: function() {
+    createNew: function() {
       this.promiseWaitingFor(this.repo().createProcedure())
         .whenSucceeded(Ember.run.bind(this, this.onProcedureCreated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));

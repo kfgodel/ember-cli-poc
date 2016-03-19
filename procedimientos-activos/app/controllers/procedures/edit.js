@@ -3,14 +3,14 @@ import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injec
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, {
   actions: {
-    saveProcedure: function() {
-      this.promiseWaitingFor(this.repo().updateProcedure(this.procedure()))
-        .whenSucceeded(Ember.run.bind(this, this.onProcedureUpdated))
+    saveModel: function() {
+      this.promiseWaitingFor(this.repo().updateProcedure(this.model))
+        .whenSucceeded(Ember.run.bind(this, this.onModelUpdated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
-    deleteProcedure: function(){
-      this.promiseWaitingFor(this.repo().removeProcedure(this.procedure()))
-        .whenSucceeded(Ember.run.bind(this, this.onProcedureRemoved))
+    deleteModel: function(){
+      this.promiseWaitingFor(this.repo().removeProcedure(this.model))
+        .whenSucceeded(Ember.run.bind(this, this.onModelRemoved))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     cancelEdition: function(){
@@ -18,21 +18,18 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, {
     }
   },
   // PRIVATE
-  procedure: function(){
-    return this.get('model');
-  },
-  onProcedureUpdated: function(updatedTo){
-    this.procedure().setProperties(updatedTo);
+  onModelUpdated: function(updatedTo){
+    this.model.setProperties(updatedTo);
     this.goBackToViewOnly();
   },
   onProcedureRemoved: function(){
     this.navigator().navigateToProceduresList();
   },
   goBackToViewOnly: function(){
-    this.navigator().navigateToProcedureView(this.procedure());
+    this.navigator().navigateToProcedureView(this.model);
   },
   onReauthenticated(){
-    this.navigator().navigateToProcedureEdit(this.procedure());
+    this.navigator().navigateToProcedureEdit(this.model);
   },
 
 });
