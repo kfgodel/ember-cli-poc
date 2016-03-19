@@ -3,6 +3,9 @@ import AuthenticatedRoute from '../../mixins/authenticated-route';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
 import SearcherInjected from '../../mixins/searcher-injected';
 import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
+import ProcedureSearchStarted from '../../messages/procedure-search-started';
+import ProcedureSearchStopped from '../../messages/procedure-search-stopped';
+
 
 export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, SearcherInjected, MessagerInjected, {
   queryParams:{
@@ -23,9 +26,9 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
   actions: {
     // Triggered while loading procedures
     loading(transition) {
-      this.messager().publish({type: 'procedureSearchStarted'});
+      this.messager().publish(new ProcedureSearchStarted());
       transition.promise.finally(()=>{
-        this.messager().publish({type: 'procedureSearchStopped'});
+        this.messager().publish(new ProcedureSearchStopped());
       });
     }
   },

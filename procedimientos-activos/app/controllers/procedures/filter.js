@@ -1,6 +1,8 @@
 import Ember from 'ember';
 import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
 import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
+import ProcedureSearchStarted from '../../messages/procedure-search-started';
+import ProcedureSearchStopped from '../../messages/procedure-search-stopped';
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, {
   actions: {
@@ -26,16 +28,16 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInje
   },
   init(){
     this._super();
-    this.messager().subscribe({type: 'procedureSearchStarted'}, ()=>{
+    this.messager().subscribe(ProcedureSearchStarted.exampleMessage, ()=>{
       this.set('currentlyLoading', true);
     });
-    this.messager().subscribe({type: 'procedureSearchStopped'}, ()=>{
+    this.messager().subscribe(ProcedureSearchStopped.exampleMessage, ()=>{
       this.set('currentlyLoading', false);
     });
   },
   willDestroy(){
-    this.messager().unsubscribe({type: 'procedureSearchStarted'});
-    this.messager().unsubscribe({type: 'procedureSearchStopped'});
+    this.messager().unsubscribe(ProcedureSearchStarted.exampleMessage);
+    this.messager().unsubscribe(ProcedureSearchStopped.exampleMessage);
     return this._super();
   }
 });
