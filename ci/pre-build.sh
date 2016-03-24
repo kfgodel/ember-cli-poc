@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Output commands as they execute
+set -v
+
 cd procedimientos-activos
 npm install
 bower install
