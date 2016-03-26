@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import UserRepositoryInjected from '../mixins/user-repository-injected';
-import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
+import Ember from "ember";
+import UserRepositoryInjected from "../mixins/user-repository-injected";
+import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
 
 export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected, {
   actions: {
@@ -11,7 +11,12 @@ export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected,
     }
   },
   onUserRemoved: function(removedUser){
-    this.userList().removeObject(removedUser);
+    // Need to search by id, because 2 instance may represents teh same entity
+    var removedId = removedUser.get('id');
+    var removedUserInList = this.userList().findBy('id', removedId);
+    if (removedUserInList) {
+      this.userList().removeObject(removedUserInList);
+    }
   },
   // PRIVATE
   userList: function(){

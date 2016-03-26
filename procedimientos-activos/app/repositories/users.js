@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import EmberResource from 'ateam-ember-resource/rest/ember-resource';
+import Ember from "ember";
+import EmberResource from "ateam-ember-resource/rest/ember-resource";
 
 export default Ember.Object.extend({
   getAllUsers: function(){
@@ -7,6 +7,9 @@ export default Ember.Object.extend({
   },
   createUser: function(){
     return this.userResource().create();
+  },
+  getUser: function (userId) {
+    return this.userResource().getSingle(userId);
   },
   updateUser: function(user){
     return this.userResource().update(user);

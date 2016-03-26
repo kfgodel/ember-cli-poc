@@ -1,9 +1,8 @@
-
-var messageClass = function ProcedureSearchStopped(){
+var MessageClass = function ProcedureSearchStopped() {
   this.type = 'procedureSearchStopped';
 };
 
 // Instancia que sirve de ejemplo para la suscripcion
-messageClass.exampleMessage = new messageClass();
+MessageClass.exampleMessage = new MessageClass();
 
-export default messageClass;
+export default MessageClass;
