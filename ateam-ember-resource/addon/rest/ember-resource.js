@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import RestResource from 'ateam-ember-resource/rest/resource';
+import Ember from "ember";
+import RestResource from "ateam-ember-resource/rest/resource";
 
 /**
  * This type represents a backend rest resource. In contrast to a simple RestResource, this type
@@ -15,8 +15,8 @@ export default Ember.Object.extend({
   getSingle: function(instanceId){
     return this.emberizing(this.resource().getSingle(instanceId));
   },
-  create: function(){
-    return this.emberizing(this.resource().create());
+  create: function (instance) {
+    return this.emberizing(this.resource().create(instance));
   },
   update: function(instance){
     return this.emberizing(this.resource().update(instance));

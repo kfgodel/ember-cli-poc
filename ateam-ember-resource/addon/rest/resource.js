@@ -1,5 +1,5 @@
-import Ember from 'ember';
-import Requester from 'ateam-ember-resource/rest/requester';
+import Ember from "ember";
+import Requester from "ateam-ember-resource/rest/requester";
 
 /**
  * This type represents a rest resource that can be used to manipulate remote instances under that rest url.
@@ -21,11 +21,15 @@ export default Ember.Object.extend({
       url: this.entityIdUrl(instanceId)
     });
   },
-  create: function(){
-    return this.makeRequest({
+  create: function (optionalState) {
+    var requestArgument = {
       method: "POST",
-      url: this.resourceUrl()
-    });
+      url: this.resourceUrl(),
+    };
+    if (optionalState) {
+      requestArgument['data'] = JSON.stringify(instance);
+    }
+    return this.makeRequest(requestArgument);
   },
   update: function(instance){
     return this.makeRequest({
