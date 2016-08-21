@@ -27,7 +27,7 @@ export default Ember.Object.extend({
       url: this.resourceUrl(),
     };
     if (optionalState) {
-      requestArgument['data'] = JSON.stringify(instance);
+      requestArgument['data'] = JSON.stringify(optionalState);
     }
     return this.makeRequest(requestArgument);
   },
