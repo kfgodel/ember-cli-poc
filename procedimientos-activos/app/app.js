@@ -1,8 +1,8 @@
-import Ember from 'ember';
-import Resolver from 'ember-resolver';
-import loadInitializers from 'ember/load-initializers';
-import config from './config/environment';
-import Application from './concepts/application';
+import Ember from "ember";
+import Resolver from "./resolver";
+import loadInitializers from "ember-load-initializers";
+import config from "./config/environment";
+import Application from "./concepts/application";
 
 let App;
 

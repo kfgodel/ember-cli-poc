@@ -74,19 +74,23 @@ app.import('bower_components/bootstrap/dist/css/bootstrap.css');
 
 ### Update ember-cli 2.7.0 
 Tomado de: https://github.com/ember-cli/ember-cli/releases 
-> cd procedimientos-activos-frontend/procedimientos-activos
-> sudo npm uninstall -g ember-cli
-> sudo npm cache clean
-> sudo bower cache clean
-> sudo npm install -g bower
-> sudo npm install -g ember-cli@2.7.0
-> rm -rf node_modules bower_components dist tmp
-> npm cache clean
-> bower cache clean
-> npm install --save-dev ember-cli@2.7.0
+> cd procedimientos-activos-frontend/procedimientos-activos  
+- Desintale node, npm, bower y borre dir de libs porque bower seguia en version vieja
+- Instale node y bower segun instrucciones, para arreglar el problema de EACCESS use:  
+> sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}  
+
+Arrancando de nuevo:  
+> npm install -g ember-cli  
+> rm -rf node_modules bower_components dist tmp  
+> npm cache clean  
+> bower cache clean  
+> npm install --save-dev ember-cli@2.7.0  
+> npm install  
+> bower install  
+> ember init  
+Revisar cambios contra git, mergeando cada diff
 > npm install
 > bower install
-> ember init
 
 
 ### Update ember-cli 2.3.0
