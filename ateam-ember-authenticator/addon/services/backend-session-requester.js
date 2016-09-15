@@ -8,7 +8,7 @@ export default Ember.Service.extend({
   beginSession(credentials){
     var loginUrl = this._locator().loginUrl();
     return Ember.$.post(loginUrl, {
-      j_username: credentials.beginSession,
+      j_username: credentials.login,
       j_password: credentials.password
     });
   },

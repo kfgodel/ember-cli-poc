@@ -93,7 +93,7 @@ export default Ember.Service.extend({
     if (pendingAction == null) {
       pendingAction = ()=> {
         this._navigator().goToInitialScreen();
-      }
+      };
     }
     return pendingAction;
   },
