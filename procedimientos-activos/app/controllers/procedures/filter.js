@@ -1,8 +1,8 @@
-import Ember from 'ember';
-import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
-import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
-import ProcedureSearchStarted from '../../messages/procedure-search-started';
-import ProcedureSearchStopped from '../../messages/procedure-search-stopped';
+import Ember from "ember";
+import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
+import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
+import ProcedureSearchStarted from "../../messages/procedure-search-started";
+import ProcedureSearchStopped from "../../messages/procedure-search-stopped";
 
 export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, {
   actions: {
@@ -27,7 +27,7 @@ export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInje
     this.navigator().navigateToProceduresListFilteringBy(clickedTag);
   },
   init(){
-    this._super();
+    this._super(...arguments);
     this.messager().subscribe(ProcedureSearchStarted.exampleMessage, ()=>{
       this.set('currentlyLoading', true);
     });

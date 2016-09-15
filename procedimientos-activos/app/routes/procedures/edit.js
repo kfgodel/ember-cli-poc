@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import AuthenticatedRoute from '../../mixins/authenticated-route';
-import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
+import Ember from "ember";
+import AuthenticatedRoute from "ateam-ember-authenticator/mixins/authenticated-route";
+import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
 
 export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, {
   model: function(params){

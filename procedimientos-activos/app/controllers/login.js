@@ -1,6 +1,6 @@
-import Ember from 'ember';
-import AuthenticatorInjected from '../mixins/authenticator-injected';
-import Application from '../concepts/application';
+import Ember from "ember";
+import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticator-injected";
+import Application from "../concepts/application";
 
 export default Ember.Controller.extend(AuthenticatorInjected, {
   application: Application.create(),

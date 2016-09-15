@@ -1,10 +1,10 @@
-import Ember from 'ember';
-import AuthenticatedRoute from '../../mixins/authenticated-route';
-import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
-import SearcherInjected from '../../mixins/searcher-injected';
-import MessagerInjected from 'ateam-ember-messager/mixins/messager-injected';
-import ProcedureSearchStarted from '../../messages/procedure-search-started';
-import ProcedureSearchStopped from '../../messages/procedure-search-stopped';
+import Ember from "ember";
+import AuthenticatedRoute from "ateam-ember-authenticator/mixins/authenticated-route";
+import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
+import SearcherInjected from "../../mixins/searcher-injected";
+import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
+import ProcedureSearchStarted from "../../messages/procedure-search-started";
+import ProcedureSearchStopped from "../../messages/procedure-search-stopped";
 
 
 export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, SearcherInjected, MessagerInjected, {

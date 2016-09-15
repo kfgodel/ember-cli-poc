@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "ember build",
-    "start": "ember server",
+    "start": "ember server --proxy http://127.0.0.1:9090",
     "test": "ember test"
   },
   "repository": "",
@@ -19,6 +19,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "ateam-ember-authenticator": "0.0.2",
     "ateam-ember-marked": "0.0.2",
     "ateam-ember-messager": "0.0.2",
     "ateam-ember-resource": "0.0.4",
