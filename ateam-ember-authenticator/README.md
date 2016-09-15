@@ -2,6 +2,8 @@
 
 This README outlines the details of collaborating on this Ember addon.
 
+* [Tests con mocha](https://echobind.com/blog/move-your-ember-tests-to-mocha/)
+
 ## Installation
 
 * `git clone` this repository
