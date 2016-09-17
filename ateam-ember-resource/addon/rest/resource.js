@@ -56,14 +56,14 @@ export default Ember.Object.extend({
   },
   _resourceUrl: function () {
     var resourceName = this.get('resourceName');
-    return this._locator()._resourceUrl(resourceName);
+    return this._locator().resourceUrl(resourceName);
   },
   _entityUrl: function (instance) {
     var instanceId = instance.get('id');
     return this._entityIdUrl(instanceId);
   },
   _entityIdUrl(instanceId){
-    return this._locator()._entityUrl(this.get('resourceName'), instanceId);
+    return this._locator().entityUrl(this.get('resourceName'), instanceId);
   },
   _makeRequest: function (customizations) {
     return Requester.create()._makeRequest(customizations);
