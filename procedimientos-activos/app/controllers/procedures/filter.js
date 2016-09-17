@@ -3,8 +3,9 @@ import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injec
 import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
 import ProcedureSearchStarted from "../../messages/procedure-search-started";
 import ProcedureSearchStopped from "../../messages/procedure-search-stopped";
+import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticator-injected";
 
-export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, {
+export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, AuthenticatorInjected, {
   actions: {
     createNew: function() {
       this.promiseWaitingFor(this.repo().createProcedure())

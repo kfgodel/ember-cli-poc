@@ -1,7 +1,8 @@
-import Ember from 'ember';
-import ProcedureRepositoryInjected from '../../mixins/procedure-repository-injected';
+import Ember from "ember";
+import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
+import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticator-injected";
 
-export default Ember.Controller.extend(ProcedureRepositoryInjected, {
+export default Ember.Controller.extend(ProcedureRepositoryInjected, AuthenticatorInjected, {
   actions: {
     saveModel: function() {
       this.promiseWaitingFor(this.repo().updateProcedure(this.model))
