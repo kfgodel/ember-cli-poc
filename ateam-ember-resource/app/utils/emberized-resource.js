@@ -1,0 +1,1 @@
+export {default} from 'ateam-ember-resource/utils/emberized-resource';
