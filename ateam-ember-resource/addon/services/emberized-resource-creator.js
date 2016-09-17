@@ -19,11 +19,11 @@ export default Ember.Service.extend(ResourceLocatorInjected, RequesterServiceInj
    * @returns The emberized resource linked to the given api path
    */
   createResource(resourceName){
-    var arguments = {
+    let emberizedArguments = {
       restResource: this._createRestResource(resourceName),
       resultEmberizer: this._createResultEmberizer()
     };
-    var emberizedResource = EmberizedResource.create(arguments);
+    var emberizedResource = EmberizedResource.create(emberizedArguments);
     return emberizedResource;
   },
 
@@ -31,7 +31,7 @@ export default Ember.Service.extend(ResourceLocatorInjected, RequesterServiceInj
     return ResultEmberizer.create();
   },
   _createRestResource(resourceName){
-    var resourceArguments = {
+    let resourceArguments = {
       resourceName: resourceName,
       resourceLocator: this.resourceLocator(),
       requesterService: this.requesterService()
