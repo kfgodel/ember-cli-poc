@@ -6,9 +6,6 @@ import Ember from "ember";
  * It translates partial sub paths to backend full paths
  */
 export default Ember.Service.extend({
-  apiUrl(){
-    return this.get('context');
-  },
   resourceUrl(resourceName){
     var resourceUrl = this._inside(this.apiUrl(), resourceName);
     return resourceUrl;
@@ -17,6 +14,9 @@ export default Ember.Service.extend({
     var resourceUrl = this.resourceUrl(resourceName);
     var entityUrl = this._inside(resourceUrl, instanceId);
     return entityUrl;
+  },
+  apiUrl(){
+    return this.get('apiPath');
   },
   loginUrl(){
     return this.get('loginPath');
