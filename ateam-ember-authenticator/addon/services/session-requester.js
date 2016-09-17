@@ -1,5 +1,5 @@
 import Ember from "ember";
-import ResourceLocatorInjected from "../mixins/resource-locator-injected";
+import ResourceLocatorInjected from "ateam-ember-resource/mixins/resource-locator-injected";
 /**
  * This class knows how to request backend sessions or end them
  */

@@ -1,11 +1,12 @@
 import Ember from "ember";
 import ServerInteraction from "ateam-ember-resource/rest/server-interaction";
-import AuthenticationState from "../auth/authentication-state";
+import AuthenticationState from "../utils/authentication-state";
+import SessionRequesterInjected from "../mixins/session-requester-injected";
+import AuthenticationNavigatorInjected from "../mixins/authentication-navigator-injected";
 
-export default Ember.Service.extend({
+export default Ember.Service.extend(SessionRequesterInjected, AuthenticationNavigatorInjected, {
   authenticationState: AuthenticationState.create(),
   actionAfterAuthentication: null,
-
 
   authenticateIfNeededAndThen(actionAfterAuthentication){
     if (this._state().isAuthenticated()) {
@@ -14,7 +15,7 @@ export default Ember.Service.extend({
     }
     this._afterAuthentication(actionAfterAuthentication);
     // By sending the user to engage screen we start the recovery process
-    this._navigator().goToSessionRecoveryScreen();
+    this.authenticationNavigator().goToSessionRecoveryScreen();
   },
 
   startSessionRecovery(){
@@ -22,12 +23,12 @@ export default Ember.Service.extend({
     return this._state();
   },
   login(credentials){
-    return this._session()
+    return this.sessionRequester()
       .beginSession(credentials)
       .then(Ember.run.bind(this, this._onUserLoggedIn));
   },
   logout(){
-    this._session()
+    this.sessionRequester()
       .endSession()
       .then(
         Ember.run.bind(this, this._onUserLoggedOut),
@@ -43,17 +44,9 @@ export default Ember.Service.extend({
   _state(){
     return this.get('authenticationState');
   },
-  _sessionRequester: Ember.inject.service('backend-session-requester'),
-  _session(){
-    return this.get('_sessionRequester');
-  },
-  _authenticationNavigator: Ember.inject.service('authentication-navigator'),
-  _navigator(){
-    return this.get('_authenticationNavigator');
-  },
 
   _ensureCurrentSession(){
-    new ServerInteraction(this._session().getCurrentSession())
+    new ServerInteraction(this.sessionRequester().getCurrentSession())
       .whenSucceeded(Ember.run.bind(this, this._onSessionRecovered))
       .whenUnauthorized(Ember.run.bind(this, this._onSessionMissing))
       .whenFailed(Ember.run.bind(this, this._onSessionError));
@@ -80,7 +73,7 @@ export default Ember.Service.extend({
   },
   _beginAuthentication(){
     this._state().markAsNotAuthenticated();
-    this._navigator().goToLoginScreen();
+    this.authenticationNavigator().goToLoginScreen();
   },
   _completeAuthentication(){
     this._state().markAsAuthenticated();
@@ -92,7 +85,7 @@ export default Ember.Service.extend({
     this.set('actionAfterAuthentication', null);
     if (pendingAction == null) {
       pendingAction = ()=> {
-        this._navigator().goToInitialScreen();
+        this.authenticationNavigator().goToInitialScreen();
       };
     }
     return pendingAction;
