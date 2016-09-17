@@ -7,10 +7,11 @@ export default Ember.Service.extend({
 
   beginSession(credentials){
     var loginUrl = this._locator().loginUrl();
-    return Ember.$.post(loginUrl, {
-      j_username: credentials.login,
-      j_password: credentials.password
-    });
+    var loginPayload = {
+      j_username: credentials.get('login'),
+      j_password: credentials.get('password')
+    };
+    return Ember.$.post(loginUrl, loginPayload);
   },
   endSession(){
     var logoutUrl = this._locator().logoutUrl();

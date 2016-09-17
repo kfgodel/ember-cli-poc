@@ -1,8 +1,8 @@
 import Ember from "ember";
 
 /**
- * Default implementation of teh resource locator that uses a base /api/vi
- * path for resource requests
+ * Default implementation of the resource locator that uses a base /api/vi
+ * path for resource requests. It translates partial sub paths to backed full paths
  */
 export default Ember.Service.extend({
   contextUrl(){
