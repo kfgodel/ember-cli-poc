@@ -1,1 +1,0 @@
-export {default} from 'ateam-ember-resource/services/ember-resource-creator';
