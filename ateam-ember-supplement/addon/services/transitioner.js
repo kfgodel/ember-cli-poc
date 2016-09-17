@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 /**
  * This type represents a globally available service to manage transitions to routes from any place in the code.
@@ -19,7 +19,7 @@ export default Ember.Service.extend({
     this.router().transitionTo(routeName, models, queryParams, shouldReplace);
   },
   // PRIVATE
-  internalRoutingService: Ember.inject.service('-routing'), // Not declare on ember api
+  internalRoutingService: Ember.inject.service('-routing'), // Not declared on ember public api
   router(){
     return this.get('internalRoutingService');
   },
