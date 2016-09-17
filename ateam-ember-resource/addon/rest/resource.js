@@ -8,59 +8,64 @@ import Requester from "ateam-ember-resource/rest/requester";
  *    RestResource.create({resourceName: 'users', resourceLocator: aResourceLocator})
  */
 export default Ember.Object.extend({
+
   getAll: function(queryParams){
-    return this.makeRequest({
+    return this._makeRequest({
       method: "GET",
-      url: this.resourceUrl(),
+      url: this._resourceUrl(),
       data: queryParams
     });
   },
+
   getSingle: function(instanceId){
-    return this.makeRequest({
+    return this._makeRequest({
       method: "GET",
-      url: this.entityIdUrl(instanceId)
+      url: this._entityIdUrl(instanceId)
     });
   },
+
   create: function (optionalState) {
     var requestArgument = {
       method: "POST",
-      url: this.resourceUrl(),
+      url: this._resourceUrl(),
     };
     if (optionalState) {
       requestArgument['data'] = JSON.stringify(optionalState);
     }
-    return this.makeRequest(requestArgument);
+    return this._makeRequest(requestArgument);
   },
+
   update: function(instance){
-    return this.makeRequest({
+    return this._makeRequest({
       method: "PUT",
-      url: this.entityUrl(instance),
+      url: this._entityUrl(instance),
       data: JSON.stringify(instance)
     });
   },
+
   remove: function(instance){
-    return this.makeRequest({
+    return this._makeRequest({
       method: "DELETE",
-      url: this.entityUrl(instance)
+      url: this._entityUrl(instance)
     });
   },
 
   // PRIVATE
-  locator(){
+  _locator(){
     return this.get('resourceLocator');
   },
-  resourceUrl: function(){
+  _resourceUrl: function () {
     var resourceName = this.get('resourceName');
-    return this.locator().resourceUrl(resourceName);
+    return this._locator()._resourceUrl(resourceName);
   },
-  entityUrl: function (instance) {
+  _entityUrl: function (instance) {
     var instanceId = instance.get('id');
-    return this.entityIdUrl(instanceId);
+    return this._entityIdUrl(instanceId);
   },
-  entityIdUrl(instanceId){
-    return this.locator().entityUrl(this.get('resourceName'), instanceId);
+  _entityIdUrl(instanceId){
+    return this._locator()._entityUrl(this.get('resourceName'), instanceId);
   },
-  makeRequest: function(customizations){
-    return Requester.create().makeRequest(customizations);
+  _makeRequest: function (customizations) {
+    return Requester.create()._makeRequest(customizations);
   },
 });

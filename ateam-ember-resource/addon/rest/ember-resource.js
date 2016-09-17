@@ -9,51 +9,56 @@ import RestResource from "ateam-ember-resource/rest/resource";
  *   EmberResource.create({resourceName: 'users', resourceClass: anEmberClass, resourceLocator: aResourceLocator})
  */
 export default Ember.Object.extend({
+
   getAll: function(queryParams){
-    return this.emberizing(this.resource().getAll(queryParams));
+    return this._emberizing(this._restResource().getAll(queryParams));
   },
   getSingle: function(instanceId){
-    return this.emberizing(this.resource().getSingle(instanceId));
+    return this._emberizing(this._restResource().getSingle(instanceId));
   },
   create: function (instance) {
-    return this.emberizing(this.resource().create(instance));
+    return this._emberizing(this._restResource().create(instance));
   },
   update: function(instance){
-    return this.emberizing(this.resource().update(instance));
+    return this._emberizing(this._restResource().update(instance));
   },
   remove: function(instance){
-    return this.emberizing(this.resource().remove(instance));
+    return this._emberizing(this._restResource().remove(instance));
   },
 
   // PRIVATE
   resourceLocator: Ember.inject.service("resource-locator"),
-  init: function(){
-    this.initializeResource();
+  init(){
+    this._super(...arguments);
+    this._initializeResource();
   },
-  initializeResource: function(){
+
+  _initializeResource: function () {
     var createdResource = RestResource.create({
       resourceLocator: this.get('resourceLocator'),
       resourceName: this.get('resourceName')
     });
     this.set('restResource', createdResource);
   },
-  resource: function(){
+  _restResource: function () {
     return this.get('restResource');
   },
-  emberize: function(jsonResult){
+  _emberize: function (jsonResult) {
     if(jsonResult instanceof Array){
-      return Ember.A(jsonResult).map(Ember.run.bind(this, this.emberize));
+      return Ember.A(jsonResult)
+        .map(Ember.run.bind(this, this._emberize));
     }else if(jsonResult instanceof Object){
-      return this.emberClass().create(jsonResult);
+      return this._emberClass()
+        .create(jsonResult);
     }
     // In any other case use it as given
     return jsonResult;
   },
-  emberizing: function(promise){
+  _emberizing: function (promise) {
     return promise
-      .then(Ember.run.bind(this, this.emberize));
+      .then(Ember.run.bind(this, this._emberize));
   },
-  emberClass(){
+  _emberClass(){
     return this.get('resourceClass') || Ember.Object;
   }
 
