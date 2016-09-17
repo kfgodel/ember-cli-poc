@@ -66,6 +66,6 @@ export default Ember.Object.extend({
     return this._locator().entityUrl(this.get('resourceName'), instanceId);
   },
   _makeRequest: function (customizations) {
-    return Requester.create()._makeRequest(customizations);
+    return Requester.create().makeRequest(customizations);
   },
 });
