@@ -1,6 +1,6 @@
 {
   "name": "ateam-ember-resource",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Ember resource objects to interact with a rest endpoint",
   "directories": {
     "doc": "doc",
