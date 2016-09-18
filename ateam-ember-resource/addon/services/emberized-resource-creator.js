@@ -50,7 +50,7 @@ export default Ember.Service.extend(ResourceLocatorInjected, RequesterServiceInj
   _createResultEmberizer(optionalClass){
     let emberizerArguments;
     if (optionalClass) {
-      emberizerArguments = {claseEmber: resourceClass};
+      emberizerArguments = {claseEmber: optionalClass};
     }
     return ResultEmberizer.create(emberizerArguments);
   },
