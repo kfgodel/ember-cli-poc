@@ -19,16 +19,25 @@ export default Ember.Service.extend(ResourceLocatorInjected, RequesterServiceInj
    * @returns The emberized resource linked to the given api path
    */
   createResource(resourceName){
+    var restResource = this._createRestResource(resourceName);
+    var resultEmberizer = this._createResultEmberizer();
+    return this._createResourceWith(restResource, resultEmberizer);
+  },
+
+  createResourceMapping(resourceName, resourceClass){
+    var restResource = this._createRestResource(resourceName);
+    var resultEmberizer = this._createResultEmberizer(resourceClass);
+    return this._createResourceWith(restResource, resultEmberizer);
+  },
+
+
+  _createResourceWith(restResource, resultEmberizer){
     let emberizedArguments = {
-      restResource: this._createRestResource(resourceName),
-      resultEmberizer: this._createResultEmberizer()
+      restResource: restResource,
+      resultEmberizer: resultEmberizer
     };
     var emberizedResource = EmberizedResource.create(emberizedArguments);
     return emberizedResource;
-  },
-
-  _createResultEmberizer(){
-    return ResultEmberizer.create();
   },
   _createRestResource(resourceName){
     let resourceArguments = {
@@ -37,5 +46,13 @@ export default Ember.Service.extend(ResourceLocatorInjected, RequesterServiceInj
       requesterService: this.requesterService()
     };
     return RestResource.create(resourceArguments);
-  }
+  },
+  _createResultEmberizer(optionalClass){
+    let emberizerArguments;
+    if (optionalClass) {
+      emberizerArguments = {claseEmber: resourceClass};
+    }
+    return ResultEmberizer.create(emberizerArguments);
+  },
+
 });
