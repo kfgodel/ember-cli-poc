@@ -1,16 +1,17 @@
 import Ember from "ember";
-import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
+import ProcedureServiceInjected from "../../mixins/procedure-service-injected";
 import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticator-injected";
+import NavigatorInjected from "../../mixins/navigator-injected";
 
-export default Ember.Controller.extend(ProcedureRepositoryInjected, AuthenticatorInjected, {
+export default Ember.Controller.extend(ProcedureServiceInjected, AuthenticatorInjected, NavigatorInjected, {
   actions: {
     saveModel: function() {
-      this.promiseWaitingFor(this.repo().updateProcedure(this.model))
+      this.promiseWaitingFor(this.procedureService().updateProcedure(this.model))
         .whenSucceeded(Ember.run.bind(this, this.onModelUpdated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },
     deleteModel: function(){
-      this.promiseWaitingFor(this.repo().removeProcedure(this.model))
+      this.promiseWaitingFor(this.procedureService().removeProcedure(this.model))
         .whenSucceeded(Ember.run.bind(this, this.onModelRemoved))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },

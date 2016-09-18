@@ -1,12 +1,12 @@
-import Ember from 'ember';
+import Ember from "ember";
 
 /**
  * This Mixin adds a the authenticator as an injected dependency
  */
 export default Ember.Mixin.create({
   searcher(){
-    return this.get('globalSearcher');
+    return this.get('_globalSearcher');
   },
   // PRIVATE
-  globalSearcher: Ember.inject.service('global-searcher'),
+  _globalSearcher: Ember.inject.service('global-searcher'),
 });

@@ -1,13 +1,14 @@
 import Ember from "ember";
 import AuthenticatedRoute from "ateam-ember-authenticator/mixins/authenticated-route";
-import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
+import ProcedureServiceInjected from "../../mixins/procedure-service-injected";
 import SearcherInjected from "../../mixins/searcher-injected";
 import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
 import ProcedureSearchStarted from "../../messages/procedure-search-started";
 import ProcedureSearchStopped from "../../messages/procedure-search-stopped";
+import NavigatorInjected from "../../mixins/navigator-injected";
 
 
-export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjected, SearcherInjected, MessagerInjected, {
+export default Ember.Route.extend(AuthenticatedRoute, ProcedureServiceInjected, SearcherInjected, MessagerInjected, NavigatorInjected, {
   queryParams:{
     filterText:{
       refreshModel: true,  // Refresh the model whenever the query param changes
@@ -18,7 +19,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureRepositoryInjecte
     // Because the queyParam is not available to the searcher we let it know its value (needed when this route is accessed by url)
     this.communicateQueryParamToSearcher(filterText);
 
-    return this.promiseWaitingFor(this.repo().getAllProceduresMathing(filterText))
+    return this.promiseWaitingFor(this.procedureService().getAllProceduresMathing(filterText))
       .whenInterruptedAndReauthenticated(()=>{
         this.navigator().navigateToProceduresListFilteringBy(filterText);
       });

@@ -1,14 +1,15 @@
 import Ember from "ember";
-import ProcedureRepositoryInjected from "../../mixins/procedure-repository-injected";
+import ProcedureServiceInjected from "../../mixins/procedure-service-injected";
 import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
 import ProcedureSearchStarted from "../../messages/procedure-search-started";
 import ProcedureSearchStopped from "../../messages/procedure-search-stopped";
 import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticator-injected";
+import NavigatorInjected from "../../mixins/navigator-injected";
 
-export default Ember.Controller.extend(ProcedureRepositoryInjected, MessagerInjected, AuthenticatorInjected, {
+export default Ember.Controller.extend(ProcedureServiceInjected, MessagerInjected, AuthenticatorInjected, NavigatorInjected, {
   actions: {
     createNew: function() {
-      this.promiseWaitingFor(this.repo().createProcedure())
+      this.promiseWaitingFor(this.procedureService().createProcedure())
         .whenSucceeded(Ember.run.bind(this, this.onProcedureCreated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     },

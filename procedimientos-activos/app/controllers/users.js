@@ -1,18 +1,19 @@
 import Ember from "ember";
-import UserRepositoryInjected from "../mixins/user-repository-injected";
+import UserServiceInjected from "../mixins/user-service-injected";
 import MessagerInjected from "ateam-ember-messager/mixins/messager-injected";
 import AuthenticatorInjected from "ateam-ember-authenticator/mixins/authenticator-injected";
+import NavigatorInjected from "../mixins/navigator-injected";
 
-export default Ember.Controller.extend(UserRepositoryInjected, MessagerInjected, AuthenticatorInjected, {
+export default Ember.Controller.extend(UserServiceInjected, MessagerInjected, AuthenticatorInjected, NavigatorInjected, {
   actions: {
     create: function() {
-      this.promiseWaitingFor(this.repo().createUser())
+      this.promiseWaitingFor(this.userService().createUser())
         .whenSucceeded(Ember.run.bind(this, this.onUserCreated))
         .whenInterruptedAndReauthenticated(Ember.run.bind(this, this.onReauthenticated));
     }
   },
   onUserRemoved: function(removedUser){
-    // Need to search by id, because 2 instance may represents teh same entity
+    // Need to search by id, because 2 instance may represents the same entity
     var removedId = removedUser.get('id');
     var removedUserInList = this.userList().findBy('id', removedId);
     if (removedUserInList) {
