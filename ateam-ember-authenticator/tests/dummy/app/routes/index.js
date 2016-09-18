@@ -1,14 +1,8 @@
 import Ember from "ember";
+import TransitionerInjected from "ateam-ember-supplement/mixins/transitioner-injected";
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(TransitionerInjected, {
   beforeModel: function () {
     this.transitioner().transitionTo('login');
   },
-
-  // PRIVATE
-  _transitionerService: Ember.inject.service('transitioner'), // Router made as a service
-  transitioner(){
-    return this.get('_transitionerService');
-  },
-
 });
