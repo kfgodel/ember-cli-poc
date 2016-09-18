@@ -5,8 +5,8 @@ import Ember from "ember";
  */
 export default Ember.Mixin.create({
   searcher(){
-    return this.get('_globalSearcher');
+    return this.get('globalSearcher');
   },
   // PRIVATE
-  _globalSearcher: Ember.inject.service('global-searcher'),
+  globalSearcher: Ember.inject.service('global-searcher'),
 });
