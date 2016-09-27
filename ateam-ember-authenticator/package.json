@@ -1,6 +1,6 @@
 {
   "name": "ateam-ember-authenticator",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Addon to ease in-app authentication",
   "directories": {
     "doc": "doc",
@@ -18,11 +18,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "ateam-ember-resource": "0.0.15",
-    "ateam-ember-supplement": "0.0.6",
+    "ateam-ember-resource": "0.0.18",
+    "ateam-ember-supplement": "0.0.7",
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.0.1",
-    "ember-cli": "2.7.0",
+    "ember-cli": "2.8.0",
     "ember-cli-app-version": "^1.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.3",
@@ -34,7 +34,6 @@
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.7.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
