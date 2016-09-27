@@ -72,7 +72,7 @@ Add to `ember-cli-build.js`
 app.import('bower_components/bootstrap/dist/css/bootstrap.css');
 ```
 
-### Update ember-cli 2.7.0 
+### Update ember-cli 2.8.0 
 Tomado de: https://github.com/ember-cli/ember-cli/releases 
 > cd procedimientos-activos-frontend/procedimientos-activos  
 - Desintale node, npm, bower y borre dir de libs porque bower seguia en version vieja
@@ -84,29 +84,14 @@ Arrancando de nuevo:
 > rm -rf node_modules bower_components dist tmp  
 > npm cache clean  
 > bower cache clean  
-> npm install --save-dev ember-cli@2.7.0  
+> npm install --save-dev ember-cli@2.8.0  
 > npm install  
 > bower install  
 > ember init  
+
 Revisar cambios contra git, mergeando cada diff
 > npm install
 > bower install
-
-
-### Update ember-cli 2.3.0
-
-> cd procedimientos-activos
-> sudo npm uninstall -g ember-cli
-> sudo npm cache clean
-> sudo npm install -g ember-cli@2.2.0-beta.6
-> rm -rf node_modules bower_components dist tmp
-> npm cache clean
-> bower cache clean
-> npm install --save-dev ember-cli@2.2.0-beta.6
-> npm install
-> bower install
-> ember init
-
 
 ## Reference Stuff
 Ember Object: http://ember.vicramon.com/the-ember-object
