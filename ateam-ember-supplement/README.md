@@ -9,17 +9,19 @@ to analyze later if it should have its own addon.
 
 ## Installation
 
-* `git clone` this repository
+* `git clone <repository-url>` this repository
+* `cd ateam-ember-supplement`
 * `npm install`
 * `bower install`
 
 ## Running
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+* `ember serve`
+* Visit your app at [http://localhost:4200](http://localhost:4200).
 
 ## Running Tests
 
+* `npm test` (Runs `ember try:each` to test your addon against multiple Ember versions)
 * `ember test`
 * `ember test --server`
 
@@ -27,7 +29,7 @@ to analyze later if it should have its own addon.
 
 * `ember build`
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+For more information on using ember-cli, visit [http://ember-cli.com/](http://ember-cli.com/).
 
 ### Created from
 
