@@ -1,4 +1,4 @@
-import Ember from 'ember';
+import Ember from "ember";
 /* global marked */
 
 export function markdownAshtml(params/*, hash*/) {
@@ -8,7 +8,7 @@ export function markdownAshtml(params/*, hash*/) {
     originalText = "";
   }
   var markedText = marked(originalText);
-  var safelyEscapedHtml = new Ember.Handlebars.SafeString(markedText);
+  var safelyEscapedHtml = Ember.String.htmlSafe(markedText);
   return safelyEscapedHtml;
 }
 
