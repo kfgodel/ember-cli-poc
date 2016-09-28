@@ -13,7 +13,7 @@
   <!-- User list -->
   <div class="col s8">
 
-    {{tenpines/material-button label='Crear nuevo' click=(action 'create') }}
+    {{tenpines/material-button label='Crear nuevo' click=(action 'create') bgColor='green' }}
 
     {{#tenpines/object-table titulos='Id, Nombre, Login, Password' striped=true}}
       {{#each model as |user|}}

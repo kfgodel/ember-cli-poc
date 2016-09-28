@@ -1,16 +1,17 @@
 <div class="row">
-  <div class="col s2">
-    {{tenpines/material-button label='Crear nuevo' action='createNew' bgColor='green' }}
-  </div>
-</div>
 
-<div class="row">
 {{#if currentlyLoading}}
+
   <div class="col s4">
     Esperando resultados: <img src="/assets/images/loading-spinner.gif" />
   </div>
+
 {{else}}
+
   <div class="col s12">
+
+    {{tenpines/material-button label='Crear nuevo' action='createNew' bgColor='green' }}
+
     <div class="table-responsive">
       <table class="striped">
         <thead>
@@ -50,5 +51,7 @@
       </table>
     </div>
   </div>
+
 {{/if}}
+
 </div>

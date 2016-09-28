@@ -1,16 +1,18 @@
 {{unauthenticated-bar}}
 
-<div class="container below-navigation-bar">
+<div class="row">
+  <div class="col s12">
 
-  <h1>Direccion incorrecta!</h1>
-  <p>
+    <h4>Direccion incorrecta!</h4>
+    <p>
     <span>
       No existe contenido en la url: /{{model.badUrl}}<br>
     </span>
-  </p>
-  <p>
-    {{#link-to 'index'}}Volver al inicio{{/link-to}}
-  </p>
+    </p>
+    <p>
+      {{#link-to 'index'}}Volver al inicio{{/link-to}}
+    </p>
 
+  </div>
 </div>
 

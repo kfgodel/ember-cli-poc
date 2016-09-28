@@ -1,13 +1,16 @@
-<form class="form-signin {{if errorMessage "has-error"}}">
-  <h2 class="form-signin-heading">{{application.displayName}}</h2>
+<div class="row">
+  <div class="col s8 offset-s2 m6 offset-m3 l4 offset-l4">
+    <form class="{{if errorMessage "has-error"}}">
+      <h4 class="form-signin-heading">{{application.displayName}}</h4>
 
-  {{input class="form-control" placeholder="login name"
-    value=model.login}}
-  {{input class="form-control" placeholder="password" type="password"
-    value=model.password enter="logIn"}}
-  {{#if errorMessage}}
-    <span class="help-block">{{errorMessage}}</span>
-  {{/if}}
+      {{tenpines/input-text label='Login name' value=model.login}}
+      {{input class="form-control" placeholder="password" type="password" value=model.password enter="logIn"}}
 
-  <button class="btn btn-lg btn-primary btn-block" {{action "logIn"}}>Entrar</button>
-</form>
+      {{#if errorMessage}}
+        <span class="help-block">{{errorMessage}}</span>
+      {{/if}}
+
+      {{tenpines/material-button label='Entrar' action='logIn' bgColor='blue' }}
+    </form>
+  </div>
+</div>
