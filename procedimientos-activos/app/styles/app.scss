@@ -1,3 +1,13 @@
+.container {
+  max-width: none;
+}
+
+@media only screen and (min-width: 993px) {
+  .container {
+    width: 80%;
+  }
+}
+
 /**
  */
 body {
@@ -5,7 +15,7 @@ body {
 }
 
 /* Move content down to avoid navigation bar on top */
-.below-navigation-bar{
+.below-navigation-bar {
   padding-top: 60px;
 }
 
@@ -27,11 +37,13 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+
 .form-signin input[type="text"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
 .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
