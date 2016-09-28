@@ -1,46 +1,57 @@
-<!-- Procedure list -->
-<button class="btn btn-success" {{action "createNew"}}>Crear nuevo</button>
+<div class="row">
 
 {{#if currentlyLoading}}
-  <div class="container">
+
+  <div class="col s4">
     Esperando resultados: <img src="/assets/images/loading-spinner.gif" />
   </div>
+
 {{else}}
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nombre</th>
-        <th>Tags</th>
-      </tr>
-      </thead>
 
-      <tbody>
-      {{#each model as |procedure| }}
-        <tr>
-          <td>{{#link-to 'procedures.view' procedure}}{{procedure.id}}{{/link-to}}</td>
-          <td>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</td>
-          <td>
-            {{#each procedure.tagList as |tag|}}
-              <button class="btn btn-primary btn-xs" {{action 'tagClicked' tag}}>{{tag}}</button>
-            {{/each}}
-          </td>
-        </tr>
-      {{else}}
-        <tr>
-          <td colspan="3">No se encontraron procedimientos</td>
-        </tr>
-      {{/each}}
-      </tbody>
+  <div class="col s12">
 
-      <tfoot>
-      <tr>
-        <td>Total</td>
-        <td colspan="2">{{model.length}}</td>
-      </tr>
-      </tfoot>
-    </table>
+    {{tenpines/material-button label='Crear nuevo' action='createNew' bgColor='green' }}
+
+    <div class="table-responsive">
+      <table class="striped">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre</th>
+          <th>Tags</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {{#each model as |procedure| }}
+          <tr>
+            <td>{{#link-to 'procedures.view' procedure}}{{procedure.id}}{{/link-to}}</td>
+            <td>{{#link-to 'procedures.view' procedure}}{{procedure.name}}{{/link-to}}</td>
+            <td>
+              {{#each procedure.tagList as |tag|}}
+                <div class="chip" {{action 'tagClicked' tag}}>
+                  {{tag}}
+                </div>
+              {{/each}}
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan="3">No se encontraron procedimientos</td>
+          </tr>
+        {{/each}}
+        </tbody>
+
+        <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>{{model.length}}</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
+
 {{/if}}
 
+</div>
