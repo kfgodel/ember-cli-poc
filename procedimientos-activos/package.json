@@ -19,11 +19,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "ateam-ember-authenticator": "0.0.6",
-    "ateam-ember-marked": "0.0.2",
-    "ateam-ember-messager": "0.0.2",
-    "ateam-ember-resource": "0.0.17",
-    "ateam-ember-supplement": "0.0.6",
+    "ateam-ember-authenticator": "0.0.7",
+    "ateam-ember-marked": "0.0.4",
+    "ateam-ember-messager": "0.0.3",
+    "ateam-ember-resource": "0.0.18",
+    "ateam-ember-supplement": "0.0.7",
     "broccoli-asset-rev": "^2.4.2",
     "ember-ajax": "^2.0.1",
     "ember-cli": "2.8.0",
@@ -39,11 +39,9 @@
     "ember-cli-sri": "^2.1.0",
     "ember-cli-test-loader": "^1.1.0",
     "ember-cli-uglify": "^1.2.0",
-    "ember-data": "^2.8.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
-    "ember-welcome-page": "^1.0.1",
     "loader.js": "^4.0.1"
   }
 }
