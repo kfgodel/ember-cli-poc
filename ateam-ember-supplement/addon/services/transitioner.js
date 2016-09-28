@@ -16,12 +16,16 @@ export default Ember.Service.extend({
       // The router expects an array for model as argument
       models = [models];
     }
+    if (!queryParams) {
+      // A hash is expected
+      queryParams = {};
+    }
     this.router().transitionTo(routeName, models, queryParams, shouldReplace);
   },
   // PRIVATE
-  internalRoutingService: Ember.inject.service('-routing'), // Not declared on ember public api
+  _internalRoutingService: Ember.inject.service('-routing'), // Not declared on ember public api
   router(){
-    return this.get('internalRoutingService');
+    return this.get('_internalRoutingService');
   },
 
 });
