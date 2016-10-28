@@ -24,9 +24,6 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureServiceInjected, 
     return this.promiseWaitingFor(this.messageService().sendMessage(messageContent))
       .whenInterruptedAndReauthenticated(()=>{
         this.navigator().navigateToProceduresListFilteringBy(filterText);
-      })
-      .then((wrap)=> {
-        return wrap.get('list');
       });
   },
   actions: {
