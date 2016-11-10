@@ -20,7 +20,7 @@ export default Ember.Route.extend(AuthenticatedRoute, ProcedureServiceInjected, 
     // Because the queyParam is not available to the searcher we let it know its value (needed when this route is accessed by url)
     this.communicateQueryParamToSearcher(filterText);
 
-    var messageContent = Ember.Object.create({searchText: ''});
+    var messageContent = Ember.Object.create({searchText: '', recurso: 'GET/procedures'});
     return this.promiseWaitingFor(this.messageService().sendMessage(messageContent))
       .whenInterruptedAndReauthenticated(()=>{
         this.navigator().navigateToProceduresListFilteringBy(filterText);
