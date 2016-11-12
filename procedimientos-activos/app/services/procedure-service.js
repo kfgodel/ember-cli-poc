@@ -12,12 +12,10 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, MessageSer
     return this.procedureResource().getAll();
   },
   getAllProceduresMathing: function (searchText) {
-    var messageContent = Ember.Object.create({searchText: searchText, recurso: 'GET/procedures'});
-    return this.messageService().sendMessage(messageContent)
+    return this.send({recurso: 'GET/procedures', searchText: searchText})
   },
   getProcedure: function (procedureId) {
-    var messageContent = Ember.Object.create({id: procedureId, recurso: 'GET/procedure'});
-    return this.messageService().sendMessage(messageContent)
+    return this.send({recurso: 'GET/procedure', id: procedureId})
   },
   createProcedure: function () {
     return this.procedureResource().create();
@@ -35,5 +33,10 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, MessageSer
     var resource = resourceCreator.createResourceMapping('procedures', Procedure);
     return resource;
   },
+
+  send(messageContent){
+    var message = Ember.Object.create(messageContent);
+    return this.messageService().sendMessage(message);
+  }
 
 });
