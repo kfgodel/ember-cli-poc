@@ -12,10 +12,10 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, MessageSer
     return this.procedureResource().getAll();
   },
   getAllProceduresMathing: function (searchText) {
-    return this.send({recurso: 'GET/procedures', searchText: searchText})
+    return this.send({recurso: 'GET/procedures', searchText: searchText});
   },
   getProcedure: function (procedureId) {
-    return this.send({recurso: 'GET/procedure', id: procedureId})
+    return this.send({recurso: 'GET/procedure', id: procedureId});
   },
   createProcedure: function () {
     return this.procedureResource().create();
