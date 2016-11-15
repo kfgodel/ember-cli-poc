@@ -21,10 +21,12 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, MessageSer
     return this.procedureResource().create();
   },
   updateProcedure: function (procedure) {
-    return this.procedureResource().update(procedure);
+    var message = procedure.getProperties(Object.keys(procedure));
+    message.recurso = 'PUT/procedure';
+    return this.send(message);
   },
   removeProcedure: function (procedure) {
-    return this.procedureResource().remove(procedure);
+    return this.send({recurso: 'DELETE/procedure', id: procedure.get('id')});
   },
 
   // PRIVATE
