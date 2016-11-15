@@ -18,7 +18,7 @@ export default Ember.Service.extend(EmberizedResourceCreatorInjected, MessageSer
     return this.send({recurso: 'GET/procedure', id: procedureId});
   },
   createProcedure: function () {
-    return this.procedureResource().create();
+    return this.send({recurso: 'POST/procedure'});
   },
   updateProcedure: function (procedure) {
     var message = procedure.getProperties(Object.keys(procedure));
