@@ -24,11 +24,11 @@ export default Ember.Service.extend(RequesterServiceInjected, ResourceLocatorInj
     return this.resourceLocator().resourceUrl(resourceName);
   },
   _emberizer(claseEmber){
-    let config = null;
+    let config;
     if (claseEmber) {
       config = {claseEmber: claseEmber};
     }
-    return ResultEmberizer.create();
+    return ResultEmberizer.create(config);
   },
 
 });
