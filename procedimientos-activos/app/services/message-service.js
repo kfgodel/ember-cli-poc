@@ -8,14 +8,14 @@ import ResultEmberizer from "ateam-ember-resource/utils/result-emberizer";
  */
 export default Ember.Service.extend(RequesterServiceInjected, ResourceLocatorInjected, {
 
-  sendMessage(messageContent) {
+  sendMessage(messageContent, claseEmber) {
     var requestArgument = {
       method: "POST",
       url: this._resourceUrl(),
       data: JSON.stringify(messageContent)
     };
     var promise = this.requesterService().makeRequest(requestArgument);
-    return this._emberizer().emberizing(promise);
+    return this._emberizer(claseEmber).emberizing(promise);
   },
 
   // PRIVATE
@@ -23,7 +23,11 @@ export default Ember.Service.extend(RequesterServiceInjected, ResourceLocatorInj
     var resourceName = 'messages';
     return this.resourceLocator().resourceUrl(resourceName);
   },
-  _emberizer(){
+  _emberizer(claseEmber){
+    let config = null;
+    if (claseEmber) {
+      config = {claseEmber: claseEmber};
+    }
     return ResultEmberizer.create();
   },
 
