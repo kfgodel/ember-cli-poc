@@ -18,7 +18,7 @@ export default Ember.Service.extend(MessageServiceInjected, {
     return this._send(message);
   },
   getUser: function (userId) {
-    let message = new MessageBuilder('POST/user')
+    let message = new MessageBuilder('GET/user')
       .withProperty("id", userId)
       .build();
     return this._send(message);
@@ -30,7 +30,7 @@ export default Ember.Service.extend(MessageServiceInjected, {
     return this._send(message);
   },
   removeUser: function (user) {
-    let message = new MessageBuilder('PUT/user')
+    let message = new MessageBuilder('DELETE/user')
       .withProperty('id', user.get('id'))
       .build();
     return this._send(message);
