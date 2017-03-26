@@ -1,5 +1,6 @@
 import Ember from "ember";
 import Procedure from "../resources/procedure";
+import MessageBuilder from "../utils/message-builder";
 import MessageServiceInjected from "../mixins/message-service-injected";
 
 /**
@@ -7,27 +8,38 @@ import MessageServiceInjected from "../mixins/message-service-injected";
  */
 export default Ember.Service.extend(MessageServiceInjected, {
 
-  getAllProceduresMathing: function (searchText) {
-    return this.send({recurso: 'GET/procedures', searchText: searchText});
+  getAllProceduresMatching: function (searchText) {
+    let message = new MessageBuilder('GET/procedures')
+      .withProperty('searchText', searchText)
+      .build();
+    return this._send(message);
   },
   getProcedure: function (procedureId) {
-    return this.send({recurso: 'GET/procedure', id: procedureId});
+    let message = new MessageBuilder('GET/procedure')
+      .withProperty('id', procedureId)
+      .build();
+    return this._send(message);
   },
   createProcedure: function () {
-    return this.send({recurso: 'POST/procedure'});
+    let message = new MessageBuilder('POST/procedure')
+      .build();
+    return this._send(message);
   },
   updateProcedure: function (procedure) {
-    var message = procedure.getProperties(Object.keys(procedure));
-    message.recurso = 'PUT/procedure';
-    return this.send(message);
+    let message = new MessageBuilder('PUT/procedure')
+      .withObject(procedure)
+      .build();
+    return this._send(message);
   },
   removeProcedure: function (procedure) {
-    return this.send({recurso: 'DELETE/procedure', id: procedure.get('id')});
+    let message = new MessageBuilder('DELETE/procedure')
+      .withProperty('id', procedure.get('id'))
+      .build();
+    return this._send(message);
   },
 
   // PRIVATE
-  send(messageContent){
-    var message = Ember.Object.create(messageContent);
+  _send(message){
     return this.messageService().sendMessage(message, Procedure);
   }
 

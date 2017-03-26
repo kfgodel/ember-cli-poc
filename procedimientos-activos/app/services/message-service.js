@@ -9,18 +9,23 @@ import ResultEmberizer from "ateam-ember-resource/utils/result-emberizer";
 export default Ember.Service.extend(RequesterServiceInjected, ResourceLocatorInjected, {
 
   sendMessage(messageContent, claseEmber) {
-    var requestArgument = {
-      method: "POST",
-      url: this._resourceUrl(),
-      data: JSON.stringify(messageContent)
-    };
-    var promise = this.requesterService().makeRequest(requestArgument);
+    let requestArgument = this._createRequest(messageContent);
+    let promise = this.requesterService().makeRequest(requestArgument);
     return this._emberizer(claseEmber).emberizing(promise);
   },
 
   // PRIVATE
+  _createRequest: function (messageContent) {
+    let requestArgument = {
+      method: "POST",
+      url: this._resourceUrl(),
+      data: JSON.stringify(messageContent)
+    };
+    return requestArgument;
+  },
+
   _resourceUrl: function () {
-    var resourceName = 'messages';
+    let resourceName = 'messages';
     return this.resourceLocator().resourceUrl(resourceName);
   },
   _emberizer(claseEmber){

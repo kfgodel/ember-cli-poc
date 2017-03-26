@@ -1,4 +1,5 @@
 import Ember from "ember";
+import MessageBuilder from "../utils/message-builder";
 import MessageServiceInjected from "../mixins/message-service-injected";
 
 /**
@@ -7,25 +8,35 @@ import MessageServiceInjected from "../mixins/message-service-injected";
 export default Ember.Service.extend(MessageServiceInjected, {
 
   getAllUsers: function () {
-    return this.send({recurso: 'GET/users'});
+    let message = new MessageBuilder('GET/users')
+      .build();
+    return this._send(message);
   },
   createUser: function () {
-    return this.send({recurso: 'POST/user'});
+    let message = new MessageBuilder('POST/user')
+      .build();
+    return this._send(message);
   },
   getUser: function (userId) {
-    return this.send({recurso: 'GET/user', id: userId});
+    let message = new MessageBuilder('POST/user')
+      .withProperty("id", userId)
+      .build();
+    return this._send(message);
   },
   updateUser: function (user) {
-    var message = user.getProperties(Object.keys(user));
-    message.recurso = 'PUT/user';
-    return this.send(message);
+    let message = new MessageBuilder('PUT/user')
+      .withObject(user)
+      .build();
+    return this._send(message);
   },
   removeUser: function (user) {
-    return this.send({recurso: 'DELETE/user', id: user.get('id')});
+    let message = new MessageBuilder('PUT/user')
+      .withProperty('id', user.get('id'))
+      .build();
+    return this._send(message);
   },
   // PRIVATE
-  send(messageContent){
-    var message = Ember.Object.create(messageContent);
+  _send(message){
     return this.messageService().sendMessage(message);
   }
 
