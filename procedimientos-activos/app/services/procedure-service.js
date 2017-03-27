@@ -1,36 +1,46 @@
 import Ember from "ember";
-import EmberizedResourceCreatorInjected from "ateam-ember-resource/mixins/emberized-resource-creator-injected";
 import Procedure from "../resources/procedure";
+import MessageBuilder from "../utils/message-builder";
+import MessageServiceInjected from "../mixins/message-service-injected";
 
 /**
  * Esta clase permite interactuar con el backend para modificar los procedures
  */
-export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
+export default Ember.Service.extend(MessageServiceInjected, {
 
-  getAllProcedures: function () {
-    return this.procedureResource().getAll();
-  },
-  getAllProceduresMathing: function (searchText) {
-    return this.procedureResource().getAll({searchText: searchText});
+  getAllProceduresMatching: function (searchText) {
+    let message = new MessageBuilder('GET/procedures')
+      .withProperty('searchText', searchText)
+      .build();
+    return this._send(message);
   },
   getProcedure: function (procedureId) {
-    return this.procedureResource().getSingle(procedureId);
+    let message = new MessageBuilder('GET/procedure')
+      .withProperty('id', procedureId)
+      .build();
+    return this._send(message);
   },
   createProcedure: function () {
-    return this.procedureResource().create();
+    let message = new MessageBuilder('POST/procedure')
+      .build();
+    return this._send(message);
   },
   updateProcedure: function (procedure) {
-    return this.procedureResource().update(procedure);
+    let message = new MessageBuilder('PUT/procedure')
+      .withObject(procedure)
+      .build();
+    return this._send(message);
   },
   removeProcedure: function (procedure) {
-    return this.procedureResource().remove(procedure);
+    let message = new MessageBuilder('DELETE/procedure')
+      .withProperty('id', procedure.get('id'))
+      .build();
+    return this._send(message);
   },
 
   // PRIVATE
-  procedureResource: function () {
-    var resourceCreator = this.resourceCreator();
-    var resource = resourceCreator.createResourceMapping('procedures', Procedure);
-    return resource;
-  },
+  _send(message){
+    return this.messageService().sendMessage(message, Procedure);
+  }
 
 });

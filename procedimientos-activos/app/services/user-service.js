@@ -1,30 +1,43 @@
 import Ember from "ember";
-import EmberizedResourceCreatorInjected from "ateam-ember-resource/mixins/emberized-resource-creator-injected";
+import MessageBuilder from "../utils/message-builder";
+import MessageServiceInjected from "../mixins/message-service-injected";
+
 /**
  * Esta clase permite interactuar con el backend para modificar los usuarios
  */
-export default Ember.Service.extend(EmberizedResourceCreatorInjected, {
+export default Ember.Service.extend(MessageServiceInjected, {
 
   getAllUsers: function () {
-    return this._userResource().getAll();
+    let message = new MessageBuilder('GET/users')
+      .build();
+    return this._send(message);
   },
   createUser: function () {
-    return this._userResource().create();
+    let message = new MessageBuilder('POST/user')
+      .build();
+    return this._send(message);
   },
   getUser: function (userId) {
-    return this._userResource().getSingle(userId);
+    let message = new MessageBuilder('GET/user')
+      .withProperty("id", userId)
+      .build();
+    return this._send(message);
   },
   updateUser: function (user) {
-    return this._userResource().update(user);
+    let message = new MessageBuilder('PUT/user')
+      .withObject(user)
+      .build();
+    return this._send(message);
   },
   removeUser: function (user) {
-    return this._userResource().remove(user);
+    let message = new MessageBuilder('DELETE/user')
+      .withProperty('id', user.get('id'))
+      .build();
+    return this._send(message);
   },
   // PRIVATE
-  _userResource: function () {
-    var resourceCreator = this.resourceCreator();
-    var resource = resourceCreator.createResource('users');
-    return resource;
-  },
+  _send(message){
+    return this.messageService().sendMessage(message);
+  }
 
 });
